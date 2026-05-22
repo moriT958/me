@@ -9,7 +9,10 @@ import { T } from "./theme.ts";
 
 export function PostPage(handle: Handle<PostPageProps>) {
   return () => (
-    <Document title={`Me | ${handle.props.post.title}`} themeName={handle.props.themeName}>
+    <Document
+      title={`Me | ${handle.props.post.title}`}
+      themeName={handle.props.themeName}
+    >
       <main mix={pageStyle}>
         <Header themeName={handle.props.themeName} />
         <div mix={contentFillStyle}>

@@ -10,16 +10,22 @@ import { T } from "./theme.ts";
 
 export function HomePage(handle: Handle<HomePageProps>) {
   return () => {
-    const visibleActivities = handle.props.activities.slice(0, handle.props.visibleCount);
+    const visibleActivities = handle.props.activities.slice(
+      0,
+      handle.props.visibleCount,
+    );
 
     return (
-      <Document title="Me | Home" themeName={handle.props.themeName}>
+      <Document title="morita's website" themeName={handle.props.themeName}>
         <main mix={pageStyle}>
           <Header themeName={handle.props.themeName} />
           <div mix={contentFillStyle}>
             <div mix={contentWrapStyle}>
               <HeroCard profile={handle.props.profile} />
-              <RecentActivities items={visibleActivities} showMore={handle.props.showMore} />
+              <RecentActivities
+                items={visibleActivities}
+                showMore={handle.props.showMore}
+              />
             </div>
           </div>
           <Footer />
