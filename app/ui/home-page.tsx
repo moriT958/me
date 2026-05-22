@@ -1,4 +1,4 @@
-import { css } from "remix/ui";
+import { css, type Handle } from "remix/ui";
 
 import { HeroCard } from "../assets/hero-card.tsx";
 import { Document } from "./document.tsx";
@@ -8,24 +8,18 @@ import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "./theme.ts";
 
-export function HomePage() {
-  return ({
-    profile,
-    activities,
-    visibleCount,
-    showMore,
-    themeName,
-  }: HomePageProps) => {
-    const visibleActivities = activities.slice(0, visibleCount);
+export function HomePage(handle: Handle<HomePageProps>) {
+  return () => {
+    const visibleActivities = handle.props.activities.slice(0, handle.props.visibleCount);
 
     return (
-      <Document title="Me | Home" themeName={themeName}>
+      <Document title="Me | Home" themeName={handle.props.themeName}>
         <main mix={pageStyle}>
-          <Header themeName={themeName} />
+          <Header themeName={handle.props.themeName} />
           <div mix={contentFillStyle}>
             <div mix={contentWrapStyle}>
-              <HeroCard profile={profile} />
-              <RecentActivities items={visibleActivities} showMore={showMore} />
+              <HeroCard profile={handle.props.profile} />
+              <RecentActivities items={visibleActivities} showMore={handle.props.showMore} />
             </div>
           </div>
           <Footer />

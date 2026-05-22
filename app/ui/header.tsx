@@ -1,11 +1,15 @@
-import { css } from "remix/ui";
+import { css, type Handle } from "remix/ui";
 
 import { routes } from "../routes.ts";
 import { T } from "./theme.ts";
 import { ThemeToggle } from "../assets/theme-toggle.tsx";
 
-export function Header() {
-  return ({ themeName }: { themeName: "light" | "dark" }) => (
+type HeaderProps = {
+  themeName: "light" | "dark";
+};
+
+export function Header(handle: Handle<HeaderProps>) {
+  return () => (
     <header mix={headerStyle}>
       <a rmx-document href={routes.home.href()} mix={brandStyle}>
         <span mix={brandIconStyle}>$</span>
@@ -23,7 +27,7 @@ export function Header() {
         <span mix={searchIconStyle}></span>
         <span mix={shortcutStyle}>⌘K</span>
       </button>
-      <ThemeToggle themeName={themeName} />
+      <ThemeToggle themeName={handle.props.themeName} />
     </header>
   );
 }

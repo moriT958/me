@@ -1,4 +1,4 @@
-import { css } from "remix/ui";
+import { css, type Handle } from "remix/ui";
 
 import type { RecentActivity } from "./home-types.ts";
 import { T } from "./theme.ts";
@@ -8,8 +8,8 @@ type RecentActivitiesProps = {
   showMore: string | null;
 };
 
-export function RecentActivities() {
-  return ({ items, showMore }: RecentActivitiesProps) => (
+export function RecentActivities(handle: Handle<RecentActivitiesProps>) {
+  return () => (
     <section mix={sectionStyle}>
       <div mix={titleRowStyle}>
         <h2 mix={titleStyle}>
@@ -18,7 +18,7 @@ export function RecentActivities() {
         </h2>
       </div>
       <div mix={listStyle}>
-        {items.map((item) => {
+        {handle.props.items.map((item) => {
           const external = item.href === "#";
           return (
             <a
@@ -36,9 +36,9 @@ export function RecentActivities() {
           );
         })}
       </div>
-      {showMore ? (
+      {handle.props.showMore ? (
         <div mix={moreWrapStyle}>
-          <a rmx-document href={showMore} mix={moreButtonStyle}>
+          <a rmx-document href={handle.props.showMore} mix={moreButtonStyle}>
             more
           </a>
         </div>

@@ -1,4 +1,4 @@
-import { css } from "remix/ui";
+import { css, type Handle } from "remix/ui";
 
 import { routes } from "../routes.ts";
 import { Document } from "./document.tsx";
@@ -7,19 +7,19 @@ import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "./theme.ts";
 
-export function PostPage() {
-  return ({ post, themeName }: PostPageProps) => (
-    <Document title={`Me | ${post.title}`} themeName={themeName}>
+export function PostPage(handle: Handle<PostPageProps>) {
+  return () => (
+    <Document title={`Me | ${handle.props.post.title}`} themeName={handle.props.themeName}>
       <main mix={pageStyle}>
-        <Header themeName={themeName} />
+        <Header themeName={handle.props.themeName} />
         <div mix={contentFillStyle}>
           <article mix={articleStyle}>
             <a rmx-document href={routes.home.href()} mix={backLinkStyle}>
               ← Home
             </a>
-            <p mix={metaStyle}>{post.date}</p>
-            <h1 mix={titleStyle}>{post.title}</h1>
-            <p mix={excerptStyle}>{post.excerpt}</p>
+            <p mix={metaStyle}>{handle.props.post.date}</p>
+            <h1 mix={titleStyle}>{handle.props.post.title}</h1>
+            <p mix={excerptStyle}>{handle.props.post.excerpt}</p>
           </article>
         </div>
         <Footer />
