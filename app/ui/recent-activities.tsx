@@ -120,4 +120,9 @@ const moreButtonStyle = css({
   padding: "4px 18px",
   borderRadius: "999px",
   textDecoration: "none",
+  transition: "color .12s, border-color .12s",
+  "&:hover": {
+    color: T.fg,
+    borderColor: T.borderStrong,
+  },
 });

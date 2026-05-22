@@ -9,13 +9,19 @@ import { Header } from "./header.tsx";
 import { T } from "./theme.ts";
 
 export function HomePage() {
-  return ({ profile, activities, visibleCount, showMore }: HomePageProps) => {
+  return ({
+    profile,
+    activities,
+    visibleCount,
+    showMore,
+    themeName,
+  }: HomePageProps) => {
     const visibleActivities = activities.slice(0, visibleCount);
 
     return (
-      <Document title="Me | Home">
+      <Document title="Me | Home" themeName={themeName}>
         <main mix={pageStyle}>
-          <Header />
+          <Header themeName={themeName} />
           <div mix={contentFillStyle}>
             <div mix={contentWrapStyle}>
               <HeroCard profile={profile} />

@@ -2,9 +2,10 @@ import { css } from "remix/ui";
 
 import { routes } from "../routes.ts";
 import { T } from "./theme.ts";
+import { ThemeToggle } from "../assets/theme-toggle.tsx";
 
 export function Header() {
-  return () => (
+  return ({ themeName }: { themeName: "light" | "dark" }) => (
     <header mix={headerStyle}>
       <a rmx-document href={routes.home.href()} mix={brandStyle}>
         <span mix={brandIconStyle}>$</span>
@@ -22,7 +23,7 @@ export function Header() {
         <span mix={searchIconStyle}></span>
         <span mix={shortcutStyle}>⌘K</span>
       </button>
-      <span mix={themePillStyle}>light</span>
+      <ThemeToggle themeName={themeName} />
     </header>
   );
 }
@@ -82,16 +83,13 @@ const searchButtonStyle = css({
   alignItems: "center",
   gap: "8px",
   marginRight: "8px",
+  transition: "color .15s, border-color .15s",
+  "&:hover": {
+    color: T.fg,
+    borderColor: T.borderStrong,
+  },
 });
 
 const searchIconStyle = css({ fontSize: "14px" });
 
 const shortcutStyle = css({ color: T.dim, fontSize: "11px" });
-
-const themePillStyle = css({
-  border: `1px solid ${T.border}`,
-  color: T.muted,
-  borderRadius: "999px",
-  padding: "5px 12px",
-  fontSize: "12px",
-});

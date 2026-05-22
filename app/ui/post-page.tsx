@@ -8,10 +8,10 @@ import { Header } from "./header.tsx";
 import { T } from "./theme.ts";
 
 export function PostPage() {
-  return ({ post }: PostPageProps) => (
-    <Document title={`Me | ${post.title}`}>
+  return ({ post, themeName }: PostPageProps) => (
+    <Document title={`Me | ${post.title}`} themeName={themeName}>
       <main mix={pageStyle}>
-        <Header />
+        <Header themeName={themeName} />
         <div mix={contentFillStyle}>
           <article mix={articleStyle}>
             <a rmx-document href={routes.home.href()} mix={backLinkStyle}>
