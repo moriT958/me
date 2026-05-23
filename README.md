@@ -1,6 +1,8 @@
 # Me
 
-morita's website.
+morita's website. 
+
+(In development..)
 
 ## Tech stack
 
