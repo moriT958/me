@@ -5,22 +5,22 @@ import { routes } from "../routes.ts";
 import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
-import type { RecentPost } from "./post-page.tsx";
 import { T } from "../assets/theme.ts";
+import type { Post } from "../content.ts";
 
 export type ArchivesPageProps = {
-  posts: RecentPost[];
+  posts: Post[];
   themeName: "light" | "dark";
 };
 
 type YearGroup = {
   year: string;
-  posts: RecentPost[];
+  posts: Post[];
 };
 
 export function ArchivesPage(handle: Handle<ArchivesPageProps>) {
   return () => {
-    const byYear = handle.props.posts.reduce<Record<string, RecentPost[]>>(
+    const byYear = handle.props.posts.reduce<Record<string, Post[]>>(
       (acc, p) => {
         const y = p.date.slice(0, 4);
         if (!acc[y]) acc[y] = [];
@@ -59,7 +59,7 @@ export function ArchivesPage(handle: Handle<ArchivesPageProps>) {
 
 type YearSectionProps = {
   year: string;
-  posts: RecentPost[];
+  posts: Post[];
 };
 
 function YearSection(handle: Handle<YearSectionProps>) {
@@ -74,7 +74,7 @@ function YearSection(handle: Handle<YearSectionProps>) {
 }
 
 type ArchiveRowProps = {
-  post: RecentPost;
+  post: Post;
   isFirst: boolean;
 };
 

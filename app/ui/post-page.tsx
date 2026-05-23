@@ -43,7 +43,14 @@ export function PostPage(handle: Handle<PostPageProps>) {
             <h1 mix={titleStyle}>
               {post.title}
               {post.external && post.url ? (
-                <a href={post.url} target="_blank" rel="noopener noreferrer" mix={externalMarkStyle}>↗</a>
+                <a
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  mix={externalMarkStyle}
+                >
+                  ↗
+                </a>
               ) : post.external ? (
                 <span mix={externalMarkStyle}>↗</span>
               ) : null}

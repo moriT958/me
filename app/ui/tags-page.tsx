@@ -5,12 +5,12 @@ import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "../assets/theme.ts";
-import type { RecentPost } from "./post-page.tsx";
 import type { SearchPost } from "../assets/search-modal.tsx";
+import type { Post } from "../content.ts";
 
 export type TagsPageProps = {
   tag: string;
-  posts: RecentPost[];
+  posts: Post[];
   allPosts: SearchPost[];
   themeName: "light" | "dark";
 };
