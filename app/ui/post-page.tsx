@@ -29,7 +29,10 @@ export function PostPage(handle: Handle<PostPageProps>) {
   return () => {
     const { post, prevPost, nextPost } = handle.props;
     return (
-      <Document title={`Me | ${post.title}`} themeName={handle.props.themeName}>
+      <Document
+        title={`morit958 | ${post.title}`}
+        themeName={handle.props.themeName}
+      >
         <main mix={pageStyle}>
           <Header
             themeName={handle.props.themeName}

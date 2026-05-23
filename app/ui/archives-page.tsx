@@ -35,7 +35,7 @@ export function ArchivesPage(handle: Handle<ArchivesPageProps>) {
       .map((year) => ({ year, posts: byYear[year]! }));
 
     return (
-      <Document title="kohei.dev | Archives" themeName={handle.props.themeName}>
+      <Document title="morit958 | Archives" themeName={handle.props.themeName}>
         <main mix={pageStyle}>
           <Header
             themeName={handle.props.themeName}

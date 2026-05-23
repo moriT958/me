@@ -9,7 +9,7 @@ export type DocumentProps = {
   themeName: "light" | "dark";
 };
 
-const DEFAULT_TITLE = readAppDisplayName("Me");
+const DEFAULT_TITLE = readAppDisplayName("morit958");
 
 export function Document(handle: Handle<DocumentProps>) {
   return () => (

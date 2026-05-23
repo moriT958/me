@@ -19,10 +19,7 @@ export function TagsPage(handle: Handle<TagsPageProps>) {
   return () => {
     const { tag, posts } = handle.props;
     return (
-      <Document
-        title={`kohei.dev | #${tag}`}
-        themeName={handle.props.themeName}
-      >
+      <Document title={`morit958 | #${tag}`} themeName={handle.props.themeName}>
         <main mix={pageStyle}>
           <Header
             themeName={handle.props.themeName}

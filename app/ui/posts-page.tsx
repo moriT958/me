@@ -21,7 +21,7 @@ export type PostsPageProps = {
 
 export function PostsPage(handle: Handle<PostsPageProps>) {
   return () => (
-    <Document title="kohei.dev | Posts" themeName={handle.props.themeName}>
+    <Document title="morit958 | Posts" themeName={handle.props.themeName}>
       <main mix={pageStyle}>
         <Header
           themeName={handle.props.themeName}
