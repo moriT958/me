@@ -23,12 +23,32 @@ export function Header(handle: Handle<HeaderProps>) {
         <span mix={inactiveNavStyle}>Archives</span>
       </nav>
       <div mix={spacerStyle} />
-      <button type="button" mix={searchButtonStyle}>
-        <span mix={searchIconStyle}></span>
-        <span mix={shortcutStyle}>⌘K</span>
-      </button>
+      <SearchButton />
       <ThemeToggle themeName={handle.props.themeName} />
     </header>
+  );
+}
+
+function SearchButton() {
+  return () => (
+    <button type="button" mix={searchButtonStyle}>
+      <svg
+        viewBox="0 0 24 24"
+        width="13"
+        height="13"
+        aria-hidden="true"
+        fill="none"
+      >
+        <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+        <path
+          d="M16.5 16.5 21 21"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+      </svg>
+      <span mix={shortcutStyle}>⌘K</span>
+    </button>
   );
 }
 
@@ -93,7 +113,5 @@ const searchButtonStyle = css({
     borderColor: T.borderStrong,
   },
 });
-
-const searchIconStyle = css({ fontSize: "14px" });
 
 const shortcutStyle = css({ color: T.dim, fontSize: "11px" });
