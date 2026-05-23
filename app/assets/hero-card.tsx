@@ -6,6 +6,10 @@ import {
   type SerializableProps,
 } from "remix/ui";
 
+import { GitHubIcon } from "./icons/github-icon.tsx";
+import { RssIcon } from "./icons/rss-icon.tsx";
+import { XIcon } from "./icons/x-icon.tsx";
+
 const T = {
   fg: "var(--fg)",
   text: "var(--text)",
@@ -97,8 +101,7 @@ export const HeroCard = clientEntry(
                       href={link.href}
                       mix={pillLinkStyle}
                     >
-                      <span mix={dotStyle}>•</span>
-                      <span mix={labelStyle}>{link.label}</span>
+                      <LinkIcon label={link.label} />
                       <span>{link.url}</span>
                     </a>
                   ))}
@@ -264,6 +267,14 @@ const pillLinkStyle = css({
   },
 });
 
-const dotStyle = css({ color: T.accent });
+type LinkIconProps = SerializableProps & { label: string };
 
-const labelStyle = css({ color: T.muted });
+function LinkIcon(handle: Handle<LinkIconProps>) {
+  return () => {
+    const { label } = handle.props;
+    if (label === "GitHub") return <GitHubIcon />;
+    if (label === "X") return <XIcon />;
+    if (label === "RSS") return <RssIcon />;
+    return null;
+  };
+}

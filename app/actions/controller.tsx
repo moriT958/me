@@ -15,16 +15,15 @@ const PROFILE: HomeProfile = {
   user: "Morita Kohei",
   handle: "moriT958",
   role: "Student SWE · 鹿児島",
-  bio: "TypeScript と Rust と Neovim と PlemolJP が好物。最近は Cloudflare 上で全部済ませようとしている小市民。",
+  bio: "鹿児島大学の M2 大学院生です。Web 技術に興味があります。好きな言語は Go です。",
   links: [
     {
       label: "GitHub",
       url: "github.com/moriT958",
       href: "https://github.com/moriT958",
     },
-    { label: "X", url: "@kohei.bsky.social", href: "#" },
-    { label: "Email", url: "kohei@ratatoskr.dev", href: "#" },
-    { label: "RSS", url: "/feed.xml", href: "#" },
+    { label: "X", url: "@morita_kagshm", href: "https://x.com/morita_kagshm" },
+    { label: "RSS", url: "/feed.xml", href: "#" }, // TODO: Add feed.xml
   ],
 };
 

@@ -1,5 +1,8 @@
 import { clientEntry, css, on, type Handle } from "remix/ui";
 
+import { MoonIcon } from "./icons/moon-icon.tsx";
+import { SunIcon } from "./icons/sun-icon.tsx";
+
 type ThemeName = "light" | "dark";
 
 type ThemeToggleProps = {
@@ -41,32 +44,12 @@ export const ThemeToggle = clientEntry(
           title={label}
           mix={[buttonStyle, on("click", () => applyTheme(nextTheme))]}
         >
-          {nextTheme === "dark" ? moonIcon() : sunIcon()}
+          {nextTheme === "dark" ? <MoonIcon /> : <SunIcon />}
         </button>
       );
     };
   },
 );
-
-function moonIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="15"
-      height="15"
-      aria-hidden="true"
-      fill="none"
-    >
-      <path
-        d="M20 14.2A8.5 8.5 0 1 1 9.8 4a7 7 0 1 0 10.2 10.2Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 function readThemeFromDom(): ThemeName | null {
   if (typeof document === "undefined") {
@@ -74,26 +57,6 @@ function readThemeFromDom(): ThemeName | null {
   }
   const value = document.documentElement.dataset.theme;
   return value === "dark" || value === "light" ? value : null;
-}
-
-function sunIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="15"
-      height="15"
-      aria-hidden="true"
-      fill="none"
-    >
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
-      <path
-        d="M12 2.5v2.5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3 17 7M7 17l-1.7 1.7M18.7 18.7 17 17M7 7 5.3 5.3"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
 }
 
 const buttonStyle = css({

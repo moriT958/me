@@ -6,6 +6,8 @@ import {
   type SerializableProps,
 } from "remix/ui";
 
+import { SearchIcon } from "./icons/search-icon.tsx";
+
 export type SearchPost = SerializableProps & {
   slug: string;
   date: string;
@@ -131,27 +133,7 @@ export const SearchButton = clientEntry(
       return (
         <div mix={wrapperStyle}>
           <button type="button" mix={[buttonStyle, on("click", openModal)]}>
-            <svg
-              viewBox="0 0 24 24"
-              width="13"
-              height="13"
-              aria-hidden="true"
-              fill="none"
-            >
-              <circle
-                cx="11"
-                cy="11"
-                r="7"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              />
-              <path
-                d="M16.5 16.5 21 21"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
-            </svg>
+            <SearchIcon />
             <span mix={shortcutLabelStyle}>⌘K</span>
           </button>
 
@@ -160,28 +142,7 @@ export const SearchButton = clientEntry(
               <div mix={[panelStyle, on("click", (e) => e.stopPropagation())]}>
                 {/* Input row */}
                 <div mix={inputRowStyle}>
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="16"
-                    height="16"
-                    aria-hidden="true"
-                    fill="none"
-                    style={{ color: "var(--muted)", flexShrink: 0 }}
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="7"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                    />
-                    <path
-                      d="M16.5 16.5 21 21"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                  <SearchIcon />
                   <input
                     id={INPUT_ID}
                     type="text"
