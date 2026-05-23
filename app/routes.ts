@@ -7,4 +7,5 @@ export const routes = route({
   post: "/posts/:slug",
   archives: "/archives",
   tags: "/tags/:name",
+  rss: "/rss.xml",
 });

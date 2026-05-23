@@ -1,6 +1,7 @@
 import { createController } from "remix/router";
 
 import { assetServer } from "../assets.ts";
+import { buildRSSFeed } from "../feed.ts";
 import { routes } from "../routes.ts";
 import {
   HomePage,
@@ -24,7 +25,7 @@ const PROFILE: HomeProfile = {
       href: "https://github.com/moriT958",
     },
     { label: "X", url: "@morita_kagshm", href: "https://x.com/morita_kagshm" },
-    { label: "RSS", url: "/feed.xml", href: "#" }, // TODO: Add feed.xml
+    { label: "RSS", url: "/rss.xml", href: "/rss.xml" },
   ],
 };
 
@@ -200,6 +201,12 @@ export default createController(routes, {
           posts={POSTS}
         />,
       );
+    },
+    rss() {
+      const feed = buildRSSFeed(POSTS);
+      return new Response(feed.rss2(), {
+        headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
+      });
     },
     tags(context) {
       const tag = context.params.name;
