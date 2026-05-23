@@ -5,4 +5,5 @@ export const routes = route({
   home: "/",
   posts: "/posts",
   post: "/posts/:slug",
+  archives: "/archives",
 });

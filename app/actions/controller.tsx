@@ -7,6 +7,7 @@ import {
   type HomeProfile,
   type RecentActivity,
 } from "../ui/home-page.tsx";
+import { ArchivesPage } from "../ui/archives-page.tsx";
 import { PostPage, type RecentPost } from "../ui/post-page.tsx";
 import { PostsPage } from "../ui/posts-page.tsx";
 
@@ -179,6 +180,12 @@ export default createController(routes, {
           totalCount={POSTS.length}
           themeName={themeName}
         />,
+      );
+    },
+    archives(context) {
+      const themeName = readThemeName(context.request.headers.get("cookie"));
+      return context.render(
+        <ArchivesPage posts={POSTS} themeName={themeName} />,
       );
     },
     post(context) {

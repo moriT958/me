@@ -6,7 +6,7 @@ import { ThemeToggle } from "../assets/theme-toggle.tsx";
 
 type HeaderProps = {
   themeName: "light" | "dark";
-  activePage?: "home" | "posts";
+  activePage?: "home" | "posts" | "archives";
 };
 
 export function Header(handle: Handle<HeaderProps>) {
@@ -33,7 +33,13 @@ export function Header(handle: Handle<HeaderProps>) {
           >
             Posts
           </a>
-          <span mix={inactiveNavStyle}>Archives</span>
+          <a
+            rmx-document
+            href={routes.archives.href()}
+            mix={active === "archives" ? activeNavStyle : navLinkStyle}
+          >
+            Archives
+          </a>
         </nav>
         <div mix={spacerStyle} />
         <SearchButton />
@@ -110,13 +116,6 @@ const navLinkStyle = css({
   borderBottom: "2px solid transparent",
   transition: "color .15s",
   "&:hover": { color: T.fg },
-});
-
-const inactiveNavStyle = css({
-  color: T.muted,
-  fontSize: "13px",
-  padding: "6px 4px",
-  borderBottom: "2px solid transparent",
 });
 
 const searchButtonStyle = css({
