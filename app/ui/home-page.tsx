@@ -1,12 +1,27 @@
 import { css, type Handle } from "remix/ui";
 
-import { HeroCard } from "../assets/hero-card.tsx";
+import { HeroCard, type HeroProfile } from "../assets/hero-card.tsx";
 import { Document } from "./document.tsx";
-import { type HomePageProps } from "./home-types.ts";
 import { RecentActivities } from "./recent-activities.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "./theme.ts";
+
+export type HomePageProps = {
+  profile: HomeProfile;
+  activities: RecentActivity[];
+  visibleCount: number;
+  showMore: string | null;
+  themeName: "light" | "dark";
+};
+
+export type HomeProfile = HeroProfile;
+
+export type RecentActivity = {
+  date: string;
+  title: string;
+  href: string;
+};
 
 export function HomePage(handle: Handle<HomePageProps>) {
   return () => {
@@ -18,7 +33,7 @@ export function HomePage(handle: Handle<HomePageProps>) {
     return (
       <Document title="morita's website" themeName={handle.props.themeName}>
         <main mix={pageStyle}>
-          <Header themeName={handle.props.themeName} />
+          <Header themeName={handle.props.themeName} activePage="home" />
           <div mix={contentFillStyle}>
             <div mix={contentWrapStyle}>
               <HeroCard profile={handle.props.profile} />

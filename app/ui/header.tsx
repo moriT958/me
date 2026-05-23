@@ -6,27 +6,41 @@ import { ThemeToggle } from "../assets/theme-toggle.tsx";
 
 type HeaderProps = {
   themeName: "light" | "dark";
+  activePage?: "home" | "posts";
 };
 
 export function Header(handle: Handle<HeaderProps>) {
-  return () => (
-    <header mix={headerStyle}>
-      <a rmx-document href={routes.home.href()} mix={brandStyle}>
-        <span mix={brandIconStyle}>$</span>
-        <span>kohei.dev</span>
-      </a>
-      <nav mix={navStyle}>
-        <a rmx-document href="/" mix={activeNavStyle}>
-          Home
+  return () => {
+    const active = handle.props.activePage ?? "home";
+    return (
+      <header mix={headerStyle}>
+        <a rmx-document href={routes.home.href()} mix={brandStyle}>
+          <span mix={brandIconStyle}>$</span>
+          <span>kohei.dev</span>
         </a>
-        <span mix={inactiveNavStyle}>Posts</span>
-        <span mix={inactiveNavStyle}>Archives</span>
-      </nav>
-      <div mix={spacerStyle} />
-      <SearchButton />
-      <ThemeToggle themeName={handle.props.themeName} />
-    </header>
-  );
+        <nav mix={navStyle}>
+          <a
+            rmx-document
+            href={routes.home.href()}
+            mix={active === "home" ? activeNavStyle : navLinkStyle}
+          >
+            Home
+          </a>
+          <a
+            rmx-document
+            href={routes.posts.href()}
+            mix={active === "posts" ? activeNavStyle : navLinkStyle}
+          >
+            Posts
+          </a>
+          <span mix={inactiveNavStyle}>Archives</span>
+        </nav>
+        <div mix={spacerStyle} />
+        <SearchButton />
+        <ThemeToggle themeName={handle.props.themeName} />
+      </header>
+    );
+  };
 }
 
 function SearchButton() {
@@ -86,6 +100,16 @@ const activeNavStyle = css({
   padding: "6px 4px",
   textDecoration: "none",
   borderBottom: `2px solid ${T.accent}`,
+});
+
+const navLinkStyle = css({
+  color: T.muted,
+  fontSize: "13px",
+  padding: "6px 4px",
+  textDecoration: "none",
+  borderBottom: "2px solid transparent",
+  transition: "color .15s",
+  "&:hover": { color: T.fg },
 });
 
 const inactiveNavStyle = css({

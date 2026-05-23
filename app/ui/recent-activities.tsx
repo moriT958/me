@@ -1,7 +1,7 @@
 import { css, type Handle } from "remix/ui";
 
-import type { RecentActivity } from "./home-types.ts";
 import { T } from "./theme.ts";
+import type { RecentActivity } from "./home-page.tsx";
 
 type RecentActivitiesProps = {
   items: RecentActivity[];
