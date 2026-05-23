@@ -1,50 +1,20 @@
-import {
-  clientEntry,
-  css,
-  type Handle,
-  type SerializableProps,
-} from "remix/ui";
+import { css, type Handle } from "remix/ui";
 
-type PostsHeadingProps = SerializableProps & {
+type PostsHeadingProps = {
   count: number;
 };
 
-export const PostsHeading = clientEntry(
-  import.meta.url,
-  function PostsHeading(handle: Handle<PostsHeadingProps>) {
-    const CMD = "ls posts/";
-    let n = 0;
-    let started = false;
-
-    return () => {
-      if (!started && typeof window !== "undefined") {
-        started = true;
-        let i = 0;
-        const iv = setInterval(() => {
-          i++;
-          n = i;
-          handle.update();
-          if (i >= CMD.length) clearInterval(iv);
-        }, 42);
-      }
-
-      const typed = CMD.slice(0, n);
-      const done = n >= CMD.length;
-
-      return (
-        <div mix={wrapStyle}>
-          <div mix={cmdLineStyle}>
-            <span mix={accentStyle}>$</span> <span>{typed}</span>
-            {!done && <span mix={caretStyle} />}
-          </div>
-          <div mix={subtitleStyle} style={{ opacity: done ? 1 : 0 }}>
-            {handle.props.count} entries · 最新から
-          </div>
-        </div>
-      );
-    };
-  },
-);
+export function PostsHeading(handle: Handle<PostsHeadingProps>) {
+  return () => (
+    <div mix={wrapStyle}>
+      <div mix={cmdLineStyle}>
+        <span mix={accentStyle}>$</span> <span mix={typedStyle}>ls posts/</span>
+        <span mix={caretStyle} />
+      </div>
+      <div mix={subtitleStyle}>{handle.props.count} entries · 最新から</div>
+    </div>
+  );
+}
 
 const wrapStyle = css({
   borderBottom: "1px solid var(--border)",
@@ -61,19 +31,40 @@ const cmdLineStyle = css({
 
 const accentStyle = css({ color: "var(--accent)" });
 
+const typedStyle = css({
+  display: "inline-block",
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  verticalAlign: "bottom",
+  animation: "typing-posts 0.38s steps(9) forwards",
+  "@keyframes typing-posts": {
+    from: { width: "0ch" },
+    to: { width: "9ch" },
+  },
+});
+
 const caretStyle = css({
   display: "inline-block",
   width: "2px",
   height: "1em",
   verticalAlign: "-0.12em",
   background: "var(--fg)",
-  animation: "blink 1.05s steps(1) infinite",
   marginLeft: "1px",
+  animation:
+    "blink 1.05s steps(1) infinite, caret-hide-posts 0s 0.38s forwards",
+  "@keyframes caret-hide-posts": {
+    to: { opacity: 0, width: 0, margin: 0 },
+  },
 });
 
 const subtitleStyle = css({
   color: "var(--muted)",
   fontSize: "12px",
   marginTop: "4px",
-  transition: "opacity .3s ease",
+  opacity: 0,
+  animation: "subtitle-fade-in-posts 0.3s ease 0.38s forwards",
+  "@keyframes subtitle-fade-in-posts": {
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  },
 });
