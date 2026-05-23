@@ -83,9 +83,11 @@ export const HeroCard = clientEntry(
               />
             ) : null}
             <div mix={contentRowStyle}>
-              <div aria-hidden="true" mix={avatarStyle}>
-                {handle.props.profile.user.slice(0, 1).toUpperCase()}
-              </div>
+              <img
+                src="/images/morit958.png"
+                alt={handle.props.profile.user}
+                mix={avatarStyle}
+              />
               <div mix={contentBodyStyle}>
                 <h1 mix={userNameStyle}>
                   {handle.props.profile.user}
@@ -216,19 +218,12 @@ const contentRowStyle = css({
 });
 
 const avatarStyle = css({
-  width: "72px",
-  height: "72px",
-  borderRadius: "72px",
-  background: "var(--hero-avatar-gradient)",
-  color: "#fff",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  fontWeight: 600,
-  fontSize: "33px",
+  width: "88px",
+  height: "88px",
+  borderRadius: "88px",
   boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.15)",
   flex: "0 0 auto",
-  letterSpacing: "-1px",
+  objectFit: "cover",
 });
 
 const contentBodyStyle = css({
