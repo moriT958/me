@@ -99,6 +99,8 @@ export const HeroCard = clientEntry(
                       remix-document
                       key={link.href}
                       href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       mix={pillLinkStyle}
                     >
                       <LinkIcon label={link.label} />
