@@ -3,13 +3,14 @@ import { createController } from "remix/router";
 import { assetServer } from "../assets.ts";
 import { buildRSSFeed } from "../feed.ts";
 import { routes } from "../routes.ts";
+import { posts as POSTS } from "../content.ts";
 import {
   HomePage,
   type HomeProfile,
   type RecentActivity,
 } from "../ui/home-page.tsx";
 import { ArchivesPage } from "../ui/archives-page.tsx";
-import { PostPage, type RecentPost } from "../ui/post-page.tsx";
+import { PostPage } from "../ui/post-page.tsx";
 import { PostsPage } from "../ui/posts-page.tsx";
 import { TagsPage } from "../ui/tags-page.tsx";
 
@@ -29,74 +30,6 @@ const PROFILE: HomeProfile = {
   ],
 };
 
-const POSTS: RecentPost[] = [
-  {
-    slug: "nvim-lazy-migration",
-    date: "2026-05-19",
-    title: "Neovim を lazy.nvim 構成へ移行した話",
-    tags: ["nvim", "dotfiles"],
-    excerpt:
-      "packer.nvim から lazy.nvim へ移行するときに踏んだ罠と、起動時間を 410ms → 90ms まで削った経緯について書きます。",
-  },
-  {
-    slug: "tailwind-v4-oklch",
-    date: "2026-05-11",
-    title: "Tailwind v4 で oklch を使い倒す",
-    tags: ["css", "frontend"],
-    excerpt:
-      "v4 から CSS-first の設定になり、color-mix と oklch でテーマシステムを書くと驚くほど短くなる。実例をいくつか。",
-  },
-  {
-    slug: "bun-workspaces",
-    date: "2026-05-02",
-    title: "Bun の Workspace で Monorepo を組む",
-    tags: ["bun", "monorepo"],
-    excerpt:
-      "Bun 1.2 の workspaces は pnpm を置き換えられるか? 実プロジェクトで2週間運用したログ。",
-  },
-  {
-    slug: "rust-tmux-statusbar",
-    date: "2026-04-24",
-    title: "Rust で自作 tmux ステータスバーを書く",
-    tags: ["rust", "tmux"],
-    excerpt:
-      "シェルスクリプトの限界を感じたので Rust に書き換え。tokio + watch チャネルで省電力な常駐型に。",
-  },
-  {
-    slug: "ts-strict-indexed-access",
-    date: "2026-04-15",
-    title: "tsconfig: noUncheckedIndexedAccess を有効化した",
-    tags: ["typescript"],
-    excerpt:
-      "後から有効化するときの差分の規模、Record<string, T> のリファクタ指針、配列アクセスの書き換えパターン。",
-  },
-  {
-    slug: "plemoljp-macos-setup",
-    date: "2026-04-03",
-    title: "PlemolJP を macOS で快適に使う設定",
-    tags: ["font", "setup"],
-    excerpt:
-      "Console NF を kitty / Ghostty / VS Code で揃える。Nerd Font グリフが効くフォールバック順の指定方法。",
-  },
-  {
-    slug: "cf-workers-blog",
-    date: "2026-03-22",
-    title: "Cloudflare Workers で個人ブログを配信する",
-    tags: ["cloudflare", "infra"],
-    external: true,
-    excerpt:
-      "静的サイトをただ置くだけでなく、Workers KV で view counter と OGP 動的生成までやる。",
-  },
-  {
-    slug: "react-useactionstate",
-    date: "2026-03-08",
-    title: "React 19 の useActionState を試した",
-    tags: ["react"],
-    external: true,
-    excerpt:
-      "useFormState がリネーム+拡張された。Server Action と組むときの楽さと、まだ辛い部分について。",
-  },
-];
 
 const ACTIVITIES: RecentActivity[] = [
   {
@@ -137,11 +70,20 @@ export default createController(routes, {
     },
     home(context) {
       const themeName = readThemeName(context.request.headers.get("cookie"));
+      const validSlugs = new Set(POSTS.map((p) => p.slug));
+      const oneMonthAgo = new Date();
+      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      const activities = ACTIVITIES.filter((a) => {
+        if (a.href === "#") return false;
+        const match = a.href.match(/^\/posts\/(.+)$/);
+        if (match && !validSlugs.has(match[1])) return false;
+        return new Date(a.date) >= oneMonthAgo;
+      });
 
       return context.render(
         <HomePage
           profile={PROFILE}
-          activities={ACTIVITIES}
+          activities={activities}
           initialCount={DEFAULT_VISIBLE_COUNT}
           themeName={themeName}
           posts={POSTS}
@@ -188,6 +130,9 @@ export default createController(routes, {
         return new Response("Not Found", { status: 404 });
       }
       const post = POSTS[idx]!;
+      if (post.external && post.url) {
+        return Response.redirect(post.url, 302);
+      }
       const prevPost = POSTS[idx + 1];
       const nextPost = idx > 0 ? POSTS[idx - 1] : undefined;
       const themeName = readThemeName(context.request.headers.get("cookie"));

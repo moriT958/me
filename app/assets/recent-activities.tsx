@@ -1,4 +1,10 @@
-import { clientEntry, css, on, type Handle, type SerializableProps } from "remix/ui";
+import {
+  clientEntry,
+  css,
+  on,
+  type Handle,
+  type SerializableProps,
+} from "remix/ui";
 
 import { T } from "./theme.ts";
 import type { RecentActivity } from "../ui/home-page.tsx";
@@ -17,7 +23,8 @@ export const RecentActivities = clientEntry(
       const items = showAll
         ? handle.props.items
         : handle.props.items.slice(0, handle.props.initialCount);
-      const hasMore = !showAll && handle.props.items.length > handle.props.initialCount;
+      const hasMore =
+        !showAll && handle.props.items.length > handle.props.initialCount;
 
       return (
         <section mix={sectionStyle}>
@@ -28,23 +35,27 @@ export const RecentActivities = clientEntry(
             </h2>
           </div>
           <div mix={listStyle}>
-            {items.map((item) => {
-              const external = item.href === "#";
-              return (
-                <a
-                  rmx-document
-                  key={`${item.date}:${item.title}`}
-                  href={item.href}
-                  mix={activityItemStyle}
-                >
-                  <span mix={dateStyle}>{item.date}</span>
-                  <span mix={itemTitleStyle}>
-                    {item.title}
-                    {external ? <span mix={externalMarkStyle}>↗</span> : null}
-                  </span>
-                </a>
-              );
-            })}
+            {items.length === 0 ? (
+              <p mix={emptyStyle}>直近の活動はありません。</p>
+            ) : (
+              items.map((item) => {
+                const external = item.href === "#";
+                return (
+                  <a
+                    rmx-document
+                    key={`${item.date}:${item.title}`}
+                    href={item.href}
+                    mix={activityItemStyle}
+                  >
+                    <span mix={dateStyle}>{item.date}</span>
+                    <span mix={itemTitleStyle}>
+                      {item.title}
+                      {external ? <span mix={externalMarkStyle}>↗</span> : null}
+                    </span>
+                  </a>
+                );
+              })
+            )}
           </div>
           {hasMore ? (
             <div mix={moreWrapStyle}>
@@ -125,6 +136,12 @@ const externalMarkStyle = css({
   color: T.muted,
   marginLeft: "5px",
   fontSize: "12px",
+});
+
+const emptyStyle = css({
+  color: T.muted,
+  fontSize: "13px",
+  padding: "12px 4px",
 });
 
 const moreWrapStyle = css({

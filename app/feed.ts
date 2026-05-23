@@ -1,6 +1,6 @@
 import { Feed } from "feed";
 
-import type { RecentPost as Post } from "./ui/post-page.tsx";
+import type { Post } from "./content.ts";
 
 const BASE_URL = "https://morit958.com";
 

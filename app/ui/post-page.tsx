@@ -1,26 +1,18 @@
 import { css, type Handle } from "remix/ui";
 
 import { routes } from "../routes.ts";
-import { CodeBlock } from "../assets/code-block.tsx";
+import { ArticleBody } from "../assets/article-body.tsx";
 import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "../assets/theme.ts";
 import type { SearchPost } from "../assets/search-modal.tsx";
-
-export type RecentPost = {
-  slug: string;
-  date: string;
-  title: string;
-  excerpt: string;
-  tags: string[];
-  external?: boolean;
-};
+import type { Post } from "../content.ts";
 
 export type PostPageProps = {
-  post: RecentPost;
-  prevPost?: RecentPost;
-  nextPost?: RecentPost;
+  post: Post;
+  prevPost?: Post;
+  nextPost?: Post;
   themeName: "light" | "dark";
   posts: SearchPost[];
 };
@@ -50,7 +42,11 @@ export function PostPage(handle: Handle<PostPageProps>) {
             {/* title */}
             <h1 mix={titleStyle}>
               {post.title}
-              {post.external ? <span mix={externalMarkStyle}>↗</span> : null}
+              {post.external && post.url ? (
+                <a href={post.url} target="_blank" rel="noopener noreferrer" mix={externalMarkStyle}>↗</a>
+              ) : post.external ? (
+                <span mix={externalMarkStyle}>↗</span>
+              ) : null}
             </h1>
 
             {/* tags */}
@@ -69,22 +65,7 @@ export function PostPage(handle: Handle<PostPageProps>) {
             </div>
 
             {/* body */}
-            <div mix={bodyStyle}>
-              <p mix={bodyFirstParaStyle}>{post.excerpt}</p>
-              <p mix={bodyParaStyle}>
-                この記事はダミーの本文です。実運用では Markdown を SSG
-                でレンダリングする想定です。 PlemolJP Console NF
-                は等幅でありながら和文が読みやすく、コードブロックでも違和感がありません。
-              </p>
-              <CodeBlock
-                code={`// example.ts\nexport const greet = (name: string) => {\n  console.log(\`hello, \${name}\`);\n}`}
-                lang="typescript"
-              />
-              <p mix={bodyParaStyle}>
-                見出しや本文には等幅の和文を使うことで、独特のリズムが生まれます。
-                コードと本文のフォントサイズの差を小さくできるので、コードを含む技術記事との相性が良いです。
-              </p>
-            </div>
+            {post.external ? null : <ArticleBody body={post.body} />}
 
             {/* prev / next */}
             <div mix={prevNextWrapStyle}>
@@ -127,12 +108,17 @@ const pageStyle = css({
   color: T.text,
   display: "grid",
   gridTemplateRows: "auto 1fr auto",
+  overflowX: "clip",
 });
 
 const articleStyle = css({
   padding: "28px 36px 60px",
   maxWidth: "720px",
+  width: "100%",
   margin: "0 auto",
+  minWidth: 0,
+  overflowX: "clip",
+  boxSizing: "border-box",
   "@media (max-width: 640px)": {
     padding: "20px 16px 48px",
   },
@@ -185,17 +171,6 @@ const tagStyle = css({
 });
 
 const tagHashStyle = css({ opacity: 0.7 });
-
-const bodyStyle = css({
-  marginTop: "22px",
-  color: T.text,
-  fontSize: "15px",
-  lineHeight: 1.85,
-});
-
-const bodyFirstParaStyle = css({ margin: 0 });
-
-const bodyParaStyle = css({ marginTop: "18px" });
 
 const prevNextWrapStyle = css({
   marginTop: "36px",

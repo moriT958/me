@@ -7,11 +7,11 @@ import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "../assets/theme.ts";
-import type { RecentPost } from "./post-page.tsx";
 import type { SearchPost } from "../assets/search-modal.tsx";
+import type { Post } from "../content.ts";
 
 export type PostsPageProps = {
-  posts: RecentPost[];
+  posts: Post[];
   allPosts: SearchPost[];
   page: number;
   totalPages: number;
@@ -47,17 +47,26 @@ export function PostsPage(handle: Handle<PostsPageProps>) {
 }
 
 type PostItemProps = {
-  post: RecentPost;
+  post: Post;
 };
 
 function PostItem(handle: Handle<PostItemProps>) {
   return () => (
     <div mix={postItemStyle}>
-      <a
-        rmx-document
-        href={routes.post.href({ slug: handle.props.post.slug })}
-        mix={cardOverlayStyle}
-      />
+      {handle.props.post.external ? (
+        <a
+          href={handle.props.post.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          mix={cardOverlayStyle}
+        />
+      ) : (
+        <a
+          rmx-document
+          href={routes.post.href({ slug: handle.props.post.slug })}
+          mix={cardOverlayStyle}
+        />
+      )}
       <div mix={postMetaStyle}>
         <span>{handle.props.post.date}</span>
       </div>
