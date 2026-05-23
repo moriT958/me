@@ -25,6 +25,13 @@ Refer to ./.agents/skills/remix/SKILL.md
 - `app/assets.ts` owns the server-side asset pipeline used by the asset route and renderer
 - `public/` contains static files served from the app root
 
+## Growing The App
+
+- Put top-level route actions in `app/actions/controller.tsx`.
+- Add `app/actions/<route-key>/controller.tsx` when a nested route map needs its own actions or middleware.
+- Add directories like `app/data/` or `test/` when the app actually needs them.
+- Move shared UI into `app/ui/` once more than one route needs it.
+
 ## Route Ownership
 
 - Start from `app/routes.ts` and map each route to the narrowest owner on disk.
