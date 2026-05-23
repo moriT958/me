@@ -37,7 +37,11 @@ export function ArchivesPage(handle: Handle<ArchivesPageProps>) {
     return (
       <Document title="kohei.dev | Archives" themeName={handle.props.themeName}>
         <main mix={pageStyle}>
-          <Header themeName={handle.props.themeName} activePage="archives" />
+          <Header
+            themeName={handle.props.themeName}
+            activePage="archives"
+            posts={handle.props.posts}
+          />
           <div mix={contentFillStyle}>
             <div mix={contentWrapStyle}>
               <ArchivesHeading count={handle.props.posts.length} />

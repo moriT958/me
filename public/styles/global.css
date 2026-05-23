@@ -42,6 +42,9 @@
     --hero-avatar-gradient: linear-gradient(135deg, var(--accent), #ff8a3b);
     --hero-pill-border: rgba(0, 0, 0, 0.07);
     --hero-pill-bg: rgba(255, 255, 255, 0.55);
+
+    --search-overlay-bg: rgba(0, 0, 0, 0.25);
+    --search-panel-bg: rgba(255, 255, 255, 0.97);
 }
 
 :root[data-theme="dark"] {
@@ -76,6 +79,9 @@
     --hero-avatar-gradient: linear-gradient(135deg, var(--accent), #5b8aff);
     --hero-pill-border: rgba(255, 255, 255, 0.1);
     --hero-pill-bg: rgba(255, 255, 255, 0.06);
+
+    --search-overlay-bg: rgba(0, 0, 0, 0.6);
+    --search-panel-bg: rgba(22, 22, 34, 0.96);
 }
 
 html,

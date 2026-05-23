@@ -154,6 +154,7 @@ export default createController(routes, {
           visibleCount={expanded ? ACTIVITIES.length : DEFAULT_VISIBLE_COUNT}
           showMore={expanded ? null : "?more=1"}
           themeName={themeName}
+          posts={POSTS}
         />,
       );
     },
@@ -175,6 +176,7 @@ export default createController(routes, {
       return context.render(
         <PostsPage
           posts={pagePosts}
+          allPosts={POSTS}
           page={page}
           totalPages={Math.ceil(POSTS.length / POSTS_PER_PAGE)}
           totalCount={POSTS.length}
@@ -206,6 +208,7 @@ export default createController(routes, {
           prevPost={prevPost}
           nextPost={nextPost}
           themeName={themeName}
+          posts={POSTS}
         />,
       );
     },

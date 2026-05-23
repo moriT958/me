@@ -7,9 +7,11 @@ import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "./theme.ts";
 import type { RecentPost } from "./post-page.tsx";
+import type { SearchPost } from "../assets/search-modal.tsx";
 
 export type PostsPageProps = {
   posts: RecentPost[];
+  allPosts: SearchPost[];
   page: number;
   totalPages: number;
   totalCount: number;
@@ -20,7 +22,11 @@ export function PostsPage(handle: Handle<PostsPageProps>) {
   return () => (
     <Document title="kohei.dev | Posts" themeName={handle.props.themeName}>
       <main mix={pageStyle}>
-        <Header themeName={handle.props.themeName} activePage="posts" />
+        <Header
+          themeName={handle.props.themeName}
+          activePage="posts"
+          posts={handle.props.allPosts}
+        />
         <div mix={contentFillStyle}>
           <div mix={contentWrapStyle}>
             <PostsHeading count={handle.props.totalCount} />

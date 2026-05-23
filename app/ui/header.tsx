@@ -3,10 +3,12 @@ import { css, type Handle } from "remix/ui";
 import { routes } from "../routes.ts";
 import { T } from "./theme.ts";
 import { ThemeToggle } from "../assets/theme-toggle.tsx";
+import { SearchButton, type SearchPost } from "../assets/search-modal.tsx";
 
 type HeaderProps = {
   themeName: "light" | "dark";
   activePage?: "home" | "posts" | "archives";
+  posts: SearchPost[];
 };
 
 export function Header(handle: Handle<HeaderProps>) {
@@ -42,34 +44,11 @@ export function Header(handle: Handle<HeaderProps>) {
           </a>
         </nav>
         <div mix={spacerStyle} />
-        <SearchButton />
+        <SearchButton posts={handle.props.posts} />
         <ThemeToggle themeName={handle.props.themeName} />
       </header>
     );
   };
-}
-
-function SearchButton() {
-  return () => (
-    <button type="button" mix={searchButtonStyle}>
-      <svg
-        viewBox="0 0 24 24"
-        width="13"
-        height="13"
-        aria-hidden="true"
-        fill="none"
-      >
-        <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
-        <path
-          d="M16.5 16.5 21 21"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-      </svg>
-      <span mix={shortcutStyle}>⌘K</span>
-    </button>
-  );
 }
 
 const headerStyle = css({
@@ -117,24 +96,3 @@ const navLinkStyle = css({
   transition: "color .15s",
   "&:hover": { color: T.fg },
 });
-
-const searchButtonStyle = css({
-  background: "transparent",
-  border: `1px solid ${T.border}`,
-  color: T.muted,
-  borderRadius: "8px",
-  padding: "5px 10px",
-  fontFamily: "inherit",
-  fontSize: "12px",
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "8px",
-  marginRight: "8px",
-  transition: "color .15s, border-color .15s",
-  "&:hover": {
-    color: T.fg,
-    borderColor: T.borderStrong,
-  },
-});
-
-const shortcutStyle = css({ color: T.dim, fontSize: "11px" });

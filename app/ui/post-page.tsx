@@ -5,6 +5,7 @@ import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "./theme.ts";
+import type { SearchPost } from "../assets/search-modal.tsx";
 
 export type RecentPost = {
   slug: string;
@@ -21,6 +22,7 @@ export type PostPageProps = {
   prevPost?: RecentPost;
   nextPost?: RecentPost;
   themeName: "light" | "dark";
+  posts: SearchPost[];
 };
 
 export function PostPage(handle: Handle<PostPageProps>) {
@@ -29,7 +31,11 @@ export function PostPage(handle: Handle<PostPageProps>) {
     return (
       <Document title={`Me | ${post.title}`} themeName={handle.props.themeName}>
         <main mix={pageStyle}>
-          <Header themeName={handle.props.themeName} activePage="posts" />
+          <Header
+            themeName={handle.props.themeName}
+            activePage="posts"
+            posts={handle.props.posts}
+          />
           <div mix={contentFillStyle}>
             <article mix={articleStyle}>
               {/* ← Posts back link */}

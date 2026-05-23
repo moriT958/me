@@ -6,6 +6,7 @@ import { RecentActivities } from "./recent-activities.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "./theme.ts";
+import type { SearchPost } from "../assets/search-modal.tsx";
 
 export type HomePageProps = {
   profile: HomeProfile;
@@ -13,6 +14,7 @@ export type HomePageProps = {
   visibleCount: number;
   showMore: string | null;
   themeName: "light" | "dark";
+  posts: SearchPost[];
 };
 
 export type HomeProfile = HeroProfile;
@@ -33,7 +35,11 @@ export function HomePage(handle: Handle<HomePageProps>) {
     return (
       <Document title="morita's website" themeName={handle.props.themeName}>
         <main mix={pageStyle}>
-          <Header themeName={handle.props.themeName} activePage="home" />
+          <Header
+            themeName={handle.props.themeName}
+            activePage="home"
+            posts={handle.props.posts}
+          />
           <div mix={contentFillStyle}>
             <div mix={contentWrapStyle}>
               <HeroCard profile={handle.props.profile} />
