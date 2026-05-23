@@ -1,0 +1,23 @@
+{
+  "builds": [
+    {
+      "src": "server.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "app/**",
+          "content/**",
+          "public/**",
+          "node_modules/remix/dist/**",
+          "node_modules/@remix-run/**"
+        ]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.ts"
+    }
+  ]
+}
