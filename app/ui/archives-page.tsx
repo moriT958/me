@@ -5,8 +5,8 @@ import { routes } from "../routes.ts";
 import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
-import { T } from "./theme.ts";
 import type { RecentPost } from "./post-page.tsx";
+import { T } from "../assets/theme.ts";
 
 export type ArchivesPageProps = {
   posts: RecentPost[];

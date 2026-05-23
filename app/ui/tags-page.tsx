@@ -4,7 +4,7 @@ import { routes } from "../routes.ts";
 import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
-import { T } from "./theme.ts";
+import { T } from "../assets/theme.ts";
 import type { RecentPost } from "./post-page.tsx";
 import type { SearchPost } from "../assets/search-modal.tsx";
 
@@ -19,7 +19,10 @@ export function TagsPage(handle: Handle<TagsPageProps>) {
   return () => {
     const { tag, posts } = handle.props;
     return (
-      <Document title={`kohei.dev | #${tag}`} themeName={handle.props.themeName}>
+      <Document
+        title={`kohei.dev | #${tag}`}
+        themeName={handle.props.themeName}
+      >
         <main mix={pageStyle}>
           <Header
             themeName={handle.props.themeName}
@@ -59,9 +62,7 @@ export function TagsPage(handle: Handle<TagsPageProps>) {
                   </div>
                   <h3 mix={postTitleStyle}>
                     {p.title}
-                    {p.external ? (
-                      <span mix={externalMarkStyle}>↗</span>
-                    ) : null}
+                    {p.external ? <span mix={externalMarkStyle}>↗</span> : null}
                   </h3>
                   <p mix={postExcerptStyle}>{p.excerpt}</p>
                   <div mix={tagRowStyle}>

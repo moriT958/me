@@ -1,7 +1,7 @@
 import { css, type Handle } from "remix/ui";
 
 import { routes } from "../routes.ts";
-import { T } from "./theme.ts";
+import { T } from "../assets/theme.ts";
 import { ThemeToggle } from "../assets/theme-toggle.tsx";
 import { SearchButton, type SearchPost } from "../assets/search-modal.tsx";
 import { MobileNav } from "../assets/mobile-nav.tsx";

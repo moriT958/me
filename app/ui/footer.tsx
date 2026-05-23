@@ -1,6 +1,6 @@
 import { css } from "remix/ui";
 
-import { T } from "./theme.ts";
+import { T } from "../assets/theme.ts";
 
 export function Footer() {
   return () => <footer mix={footerStyle}>Copyright © 2026 Kohei Morita</footer>;

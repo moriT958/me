@@ -5,7 +5,7 @@ import { Document } from "./document.tsx";
 import { RecentActivities } from "./recent-activities.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
-import { T } from "./theme.ts";
+import { T } from "../assets/theme.ts";
 import type { SearchPost } from "../assets/search-modal.tsx";
 
 export type HomePageProps = {

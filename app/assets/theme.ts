@@ -1,0 +1,15 @@
+export const T = {
+  bg: "var(--bg)",
+  panel: "var(--panel)",
+  panel2: "var(--panel2)",
+  border: "var(--border)",
+  borderStrong: "var(--border-strong)",
+  fg: "var(--fg)",
+  text: "var(--text)",
+  muted: "var(--muted)",
+  dim: "var(--dim)",
+  accent: "var(--accent)",
+  accentSoft: "var(--accent-soft)",
+  accentBorder: "var(--accent-border)",
+  hoverBg: "var(--hover-bg)",
+};

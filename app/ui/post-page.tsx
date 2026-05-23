@@ -1,10 +1,11 @@
 import { css, type Handle } from "remix/ui";
 
 import { routes } from "../routes.ts";
+import { CodeBlock } from "../assets/code-block.tsx";
 import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
-import { T } from "./theme.ts";
+import { T } from "../assets/theme.ts";
 import type { SearchPost } from "../assets/search-modal.tsx";
 
 export type RecentPost = {
@@ -41,9 +42,7 @@ export function PostPage(handle: Handle<PostPageProps>) {
               ← Posts
             </a>
 
-            <div mix={metaStyle}>
-              {post.date}
-            </div>
+            <div mix={metaStyle}>{post.date}</div>
 
             {/* title */}
             <h1 mix={titleStyle}>
@@ -74,16 +73,10 @@ export function PostPage(handle: Handle<PostPageProps>) {
                 でレンダリングする想定です。 PlemolJP Console NF
                 は等幅でありながら和文が読みやすく、コードブロックでも違和感がありません。
               </p>
-              <pre mix={codeBlockStyle}>
-                <span mix={codeCommentStyle}>{"// example.ts"}</span>
-                {"\n"}
-                <span mix={codeKeywordStyle}>{"export const"}</span>
-                {" greet = (name: "}
-                <span mix={codeKeywordStyle}>{"string"}</span>
-                {") => {\n  console.log("}
-                <span mix={codeStringStyle}>{"`hello, ${name}`"}</span>
-                {");\n}"}
-              </pre>
+              <CodeBlock
+                code={`// example.ts\nexport const greet = (name: string) => {\n  console.log(\`hello, \${name}\`);\n}`}
+                lang="typescript"
+              />
               <p mix={bodyParaStyle}>
                 見出しや本文には等幅の和文を使うことで、独特のリズムが生まれます。
                 コードと本文のフォントサイズの差を小さくできるので、コードを含む技術記事との相性が良いです。
@@ -200,22 +193,6 @@ const bodyStyle = css({
 const bodyFirstParaStyle = css({ margin: 0 });
 
 const bodyParaStyle = css({ marginTop: "18px" });
-
-const codeBlockStyle = css({
-  background: T.panel2,
-  border: `1px solid ${T.border}`,
-  borderRadius: "8px",
-  padding: "14px 18px",
-  fontSize: "13px",
-  color: T.fg,
-  overflow: "auto",
-  marginTop: "18px",
-  lineHeight: 1.65,
-});
-
-const codeCommentStyle = css({ color: T.muted });
-const codeKeywordStyle = css({ color: T.accent });
-const codeStringStyle = css({ color: "var(--code-string)" });
 
 const prevNextWrapStyle = css({
   marginTop: "36px",
