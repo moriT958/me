@@ -6,4 +6,5 @@ export const routes = route({
   posts: "/posts",
   post: "/posts/:slug",
   archives: "/archives",
+  tags: "/tags/:name",
 });

@@ -2,6 +2,7 @@ import { css, type Handle } from "remix/ui";
 
 import { PostsHeading } from "../assets/posts-heading.tsx";
 import { routes } from "../routes.ts";
+
 import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
@@ -51,15 +52,14 @@ type PostItemProps = {
 
 function PostItem(handle: Handle<PostItemProps>) {
   return () => (
-    <a
-      rmx-document
-      href={routes.post.href({ slug: handle.props.post.slug })}
-      mix={postItemStyle}
-    >
+    <div mix={postItemStyle}>
+      <a
+        rmx-document
+        href={routes.post.href({ slug: handle.props.post.slug })}
+        mix={cardOverlayStyle}
+      />
       <div mix={postMetaStyle}>
         <span>{handle.props.post.date}</span>
-        <span>·</span>
-        <span>{handle.props.post.read}</span>
       </div>
       <h3 mix={postTitleStyle}>
         {handle.props.post.title}
@@ -70,13 +70,18 @@ function PostItem(handle: Handle<PostItemProps>) {
       <p mix={postExcerptStyle}>{handle.props.post.excerpt}</p>
       <div mix={tagRowStyle}>
         {handle.props.post.tags.map((tag) => (
-          <span key={tag} mix={tagStyle}>
+          <a
+            key={tag}
+            rmx-document
+            href={routes.tags.href({ name: tag })}
+            mix={tagStyle}
+          >
             <span mix={tagHashStyle}>#</span>
             {tag}
-          </span>
+          </a>
         ))}
       </div>
-    </a>
+    </div>
   );
 }
 
@@ -156,14 +161,17 @@ const listStyle = css({
 });
 
 const postItemStyle = css({
-  display: "block",
+  position: "relative",
   padding: "18px 8px",
   borderBottom: `1px solid ${T.border}`,
-  textDecoration: "none",
-  color: T.fg,
   borderRadius: "6px",
   transition: "background .12s",
   "&:hover": { background: T.hoverBg },
+});
+
+const cardOverlayStyle = css({
+  position: "absolute",
+  inset: 0,
 });
 
 const postMetaStyle = css({
@@ -203,10 +211,12 @@ const tagRowStyle = css({
 });
 
 const tagStyle = css({
+  position: "relative",
   color: T.accent,
   fontSize: "12px",
   borderBottom: `1px dashed ${T.accent}`,
   paddingBottom: "1px",
+  textDecoration: "none",
 });
 
 const tagHashStyle = css({ opacity: 0.7 });

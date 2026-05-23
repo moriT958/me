@@ -13,7 +13,6 @@ export type RecentPost = {
   title: string;
   excerpt: string;
   tags: string[];
-  read: string;
   external?: boolean;
 };
 
@@ -42,9 +41,8 @@ export function PostPage(handle: Handle<PostPageProps>) {
               ← Posts
             </a>
 
-            {/* date · read */}
             <div mix={metaStyle}>
-              {post.date} · {post.read}
+              {post.date}
             </div>
 
             {/* title */}
@@ -56,10 +54,15 @@ export function PostPage(handle: Handle<PostPageProps>) {
             {/* tags */}
             <div mix={tagRowStyle}>
               {post.tags.map((tag) => (
-                <span key={tag} mix={tagStyle}>
+                <a
+                  key={tag}
+                  rmx-document
+                  href={routes.tags.href({ name: tag })}
+                  mix={tagStyle}
+                >
                   <span mix={tagHashStyle}>#</span>
                   {tag}
-                </span>
+                </a>
               ))}
             </div>
 
@@ -182,6 +185,7 @@ const tagStyle = css({
   fontSize: "12px",
   borderBottom: `1px dashed ${T.accent}`,
   paddingBottom: "1px",
+  textDecoration: "none",
 });
 
 const tagHashStyle = css({ opacity: 0.7 });

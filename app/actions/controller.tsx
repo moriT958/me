@@ -1,4 +1,4 @@
-import { createController, RequestContext } from "remix/router";
+import { createController } from "remix/router";
 
 import { assetServer } from "../assets.ts";
 import { routes } from "../routes.ts";
@@ -10,6 +10,7 @@ import {
 import { ArchivesPage } from "../ui/archives-page.tsx";
 import { PostPage, type RecentPost } from "../ui/post-page.tsx";
 import { PostsPage } from "../ui/posts-page.tsx";
+import { TagsPage } from "../ui/tags-page.tsx";
 
 const PROFILE: HomeProfile = {
   user: "Morita Kohei",
@@ -33,7 +34,6 @@ const POSTS: RecentPost[] = [
     date: "2026-05-19",
     title: "Neovim を lazy.nvim 構成へ移行した話",
     tags: ["nvim", "dotfiles"],
-    read: "8 min",
     excerpt:
       "packer.nvim から lazy.nvim へ移行するときに踏んだ罠と、起動時間を 410ms → 90ms まで削った経緯について書きます。",
   },
@@ -42,7 +42,6 @@ const POSTS: RecentPost[] = [
     date: "2026-05-11",
     title: "Tailwind v4 で oklch を使い倒す",
     tags: ["css", "frontend"],
-    read: "6 min",
     excerpt:
       "v4 から CSS-first の設定になり、color-mix と oklch でテーマシステムを書くと驚くほど短くなる。実例をいくつか。",
   },
@@ -51,7 +50,6 @@ const POSTS: RecentPost[] = [
     date: "2026-05-02",
     title: "Bun の Workspace で Monorepo を組む",
     tags: ["bun", "monorepo"],
-    read: "10 min",
     excerpt:
       "Bun 1.2 の workspaces は pnpm を置き換えられるか? 実プロジェクトで2週間運用したログ。",
   },
@@ -60,7 +58,6 @@ const POSTS: RecentPost[] = [
     date: "2026-04-24",
     title: "Rust で自作 tmux ステータスバーを書く",
     tags: ["rust", "tmux"],
-    read: "12 min",
     excerpt:
       "シェルスクリプトの限界を感じたので Rust に書き換え。tokio + watch チャネルで省電力な常駐型に。",
   },
@@ -69,7 +66,6 @@ const POSTS: RecentPost[] = [
     date: "2026-04-15",
     title: "tsconfig: noUncheckedIndexedAccess を有効化した",
     tags: ["typescript"],
-    read: "5 min",
     excerpt:
       "後から有効化するときの差分の規模、Record<string, T> のリファクタ指針、配列アクセスの書き換えパターン。",
   },
@@ -78,7 +74,6 @@ const POSTS: RecentPost[] = [
     date: "2026-04-03",
     title: "PlemolJP を macOS で快適に使う設定",
     tags: ["font", "setup"],
-    read: "4 min",
     excerpt:
       "Console NF を kitty / Ghostty / VS Code で揃える。Nerd Font グリフが効くフォールバック順の指定方法。",
   },
@@ -87,7 +82,6 @@ const POSTS: RecentPost[] = [
     date: "2026-03-22",
     title: "Cloudflare Workers で個人ブログを配信する",
     tags: ["cloudflare", "infra"],
-    read: "9 min",
     external: true,
     excerpt:
       "静的サイトをただ置くだけでなく、Workers KV で view counter と OGP 動的生成までやる。",
@@ -97,7 +91,6 @@ const POSTS: RecentPost[] = [
     date: "2026-03-08",
     title: "React 19 の useActionState を試した",
     tags: ["react"],
-    read: "7 min",
     external: true,
     excerpt:
       "useFormState がリネーム+拡張された。Server Action と組むときの楽さと、まだ辛い部分について。",
@@ -208,6 +201,20 @@ export default createController(routes, {
           nextPost={nextPost}
           themeName={themeName}
           posts={POSTS}
+        />,
+      );
+    },
+    tags(context) {
+      const tag = context.params.name;
+      const filtered = POSTS.filter((p) => p.tags.includes(tag));
+      const themeName = readThemeName(context.request.headers.get("cookie"));
+
+      return context.render(
+        <TagsPage
+          tag={tag}
+          posts={filtered}
+          allPosts={POSTS}
+          themeName={themeName}
         />,
       );
     },
