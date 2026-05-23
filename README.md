@@ -1,6 +1,6 @@
 # Me
 
-morita's website. 
+morita's website.
 
 (開発中...)
 
@@ -8,7 +8,3 @@ morita's website.
 
 - TypeScript (node.js)
 - Remix 3
-
-## TODO (タスク管理)
-
-- [ ] Image rendering
