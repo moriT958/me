@@ -115,6 +115,18 @@ export const HeroCard = clientEntry(
   },
 );
 
+type LinkIconProps = SerializableProps & { label: string };
+
+function LinkIcon(handle: Handle<LinkIconProps>) {
+  return () => {
+    const { label } = handle.props;
+    if (label === "GitHub") return <GitHubIcon />;
+    if (label === "X") return <XIcon />;
+    if (label === "RSS") return <RssIcon />;
+    return null;
+  };
+}
+
 const sectionStyle = css({ position: "relative" });
 
 const blobWrapStyle = css({
@@ -194,6 +206,11 @@ const contentRowStyle = css({
   display: "flex",
   gap: "22px",
   alignItems: "flex-start",
+  "@media (max-width: 640px)": {
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "16px",
+  },
 });
 
 const avatarStyle = css({
@@ -212,7 +229,14 @@ const avatarStyle = css({
   letterSpacing: "-1px",
 });
 
-const contentBodyStyle = css({ flex: 1, minWidth: 0 });
+const contentBodyStyle = css({
+  flex: 1,
+  minWidth: 0,
+  "@media (max-width: 640px)": {
+    textAlign: "center",
+    width: "100%",
+  },
+});
 
 const userNameStyle = css({
   fontSize: "28px",
@@ -247,6 +271,9 @@ const linkListStyle = css({
   flexWrap: "wrap",
   gap: "8px",
   marginTop: "14px",
+  "@media (max-width: 640px)": {
+    justifyContent: "center",
+  },
 });
 
 const pillLinkStyle = css({
@@ -266,15 +293,3 @@ const pillLinkStyle = css({
     color: T.fg,
   },
 });
-
-type LinkIconProps = SerializableProps & { label: string };
-
-function LinkIcon(handle: Handle<LinkIconProps>) {
-  return () => {
-    const { label } = handle.props;
-    if (label === "GitHub") return <GitHubIcon />;
-    if (label === "X") return <XIcon />;
-    if (label === "RSS") return <RssIcon />;
-    return null;
-  };
-}

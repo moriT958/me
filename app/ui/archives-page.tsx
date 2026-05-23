@@ -42,14 +42,12 @@ export function ArchivesPage(handle: Handle<ArchivesPageProps>) {
             activePage="archives"
             posts={handle.props.posts}
           />
-          <div mix={contentFillStyle}>
-            <div mix={contentWrapStyle}>
-              <ArchivesHeading count={handle.props.posts.length} />
-              <div mix={listStyle}>
-                {yearGroups.map(({ year, posts }) => (
-                  <YearSection key={year} year={year} posts={posts} />
-                ))}
-              </div>
+          <div mix={contentWrapStyle}>
+            <ArchivesHeading count={handle.props.posts.length} />
+            <div mix={listStyle}>
+              {yearGroups.map(({ year, posts }) => (
+                <YearSection key={year} year={year} posts={posts} />
+              ))}
             </div>
           </div>
           <Footer />
@@ -105,16 +103,17 @@ const pageStyle = css({
   minHeight: "100vh",
   background: T.bg,
   color: T.text,
-  display: "flex",
-  flexDirection: "column",
+  display: "grid",
+  gridTemplateRows: "auto 1fr auto",
 });
-
-const contentFillStyle = css({ flex: 1, minHeight: 0 });
 
 const contentWrapStyle = css({
   padding: "32px 36px 48px",
   maxWidth: "820px",
   margin: "0 auto",
+  "@media (max-width: 640px)": {
+    padding: "20px 16px 40px",
+  },
 });
 
 const listStyle = css({ marginTop: "4px" });

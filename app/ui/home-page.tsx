@@ -40,14 +40,12 @@ export function HomePage(handle: Handle<HomePageProps>) {
             activePage="home"
             posts={handle.props.posts}
           />
-          <div mix={contentFillStyle}>
-            <div mix={contentWrapStyle}>
-              <HeroCard profile={handle.props.profile} />
-              <RecentActivities
-                items={visibleActivities}
-                showMore={handle.props.showMore}
-              />
-            </div>
+          <div mix={contentWrapStyle}>
+            <HeroCard profile={handle.props.profile} />
+            <RecentActivities
+              items={visibleActivities}
+              showMore={handle.props.showMore}
+            />
           </div>
           <Footer />
         </main>
@@ -60,17 +58,15 @@ const pageStyle = css({
   minHeight: "100vh",
   background: T.bg,
   color: T.text,
-  display: "flex",
-  flexDirection: "column",
-});
-
-const contentFillStyle = css({
-  flex: 1,
-  minHeight: 0,
+  display: "grid",
+  gridTemplateRows: "auto 1fr auto",
 });
 
 const contentWrapStyle = css({
   padding: "36px 36px 48px",
   maxWidth: "820px",
   margin: "0 auto",
+  "@media (max-width: 640px)": {
+    padding: "24px 16px 40px",
+  },
 });

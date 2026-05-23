@@ -36,87 +36,85 @@ export function PostPage(handle: Handle<PostPageProps>) {
             activePage="posts"
             posts={handle.props.posts}
           />
-          <div mix={contentFillStyle}>
-            <article mix={articleStyle}>
-              {/* ← Posts back link */}
-              <a rmx-document href={routes.posts.href()} mix={backLinkStyle}>
-                ← Posts
-              </a>
+          <article mix={articleStyle}>
+            {/* ← Posts back link */}
+            <a rmx-document href={routes.posts.href()} mix={backLinkStyle}>
+              ← Posts
+            </a>
 
-              {/* date · read */}
-              <div mix={metaStyle}>
-                {post.date} · {post.read}
-              </div>
+            {/* date · read */}
+            <div mix={metaStyle}>
+              {post.date} · {post.read}
+            </div>
 
-              {/* title */}
-              <h1 mix={titleStyle}>
-                {post.title}
-                {post.external ? <span mix={externalMarkStyle}>↗</span> : null}
-              </h1>
+            {/* title */}
+            <h1 mix={titleStyle}>
+              {post.title}
+              {post.external ? <span mix={externalMarkStyle}>↗</span> : null}
+            </h1>
 
-              {/* tags */}
-              <div mix={tagRowStyle}>
-                {post.tags.map((tag) => (
-                  <span key={tag} mix={tagStyle}>
-                    <span mix={tagHashStyle}>#</span>
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            {/* tags */}
+            <div mix={tagRowStyle}>
+              {post.tags.map((tag) => (
+                <span key={tag} mix={tagStyle}>
+                  <span mix={tagHashStyle}>#</span>
+                  {tag}
+                </span>
+              ))}
+            </div>
 
-              {/* body */}
-              <div mix={bodyStyle}>
-                <p mix={bodyFirstParaStyle}>{post.excerpt}</p>
-                <p mix={bodyParaStyle}>
-                  この記事はダミーの本文です。実運用では Markdown を SSG
-                  でレンダリングする想定です。 PlemolJP Console NF
-                  は等幅でありながら和文が読みやすく、コードブロックでも違和感がありません。
-                </p>
-                <pre mix={codeBlockStyle}>
-                  <span mix={codeCommentStyle}>{"// example.ts"}</span>
-                  {"\n"}
-                  <span mix={codeKeywordStyle}>{"export const"}</span>
-                  {" greet = (name: "}
-                  <span mix={codeKeywordStyle}>{"string"}</span>
-                  {") => {\n  console.log("}
-                  <span mix={codeStringStyle}>{"`hello, ${name}`"}</span>
-                  {");\n}"}
-                </pre>
-                <p mix={bodyParaStyle}>
-                  見出しや本文には等幅の和文を使うことで、独特のリズムが生まれます。
-                  コードと本文のフォントサイズの差を小さくできるので、コードを含む技術記事との相性が良いです。
-                </p>
-              </div>
+            {/* body */}
+            <div mix={bodyStyle}>
+              <p mix={bodyFirstParaStyle}>{post.excerpt}</p>
+              <p mix={bodyParaStyle}>
+                この記事はダミーの本文です。実運用では Markdown を SSG
+                でレンダリングする想定です。 PlemolJP Console NF
+                は等幅でありながら和文が読みやすく、コードブロックでも違和感がありません。
+              </p>
+              <pre mix={codeBlockStyle}>
+                <span mix={codeCommentStyle}>{"// example.ts"}</span>
+                {"\n"}
+                <span mix={codeKeywordStyle}>{"export const"}</span>
+                {" greet = (name: "}
+                <span mix={codeKeywordStyle}>{"string"}</span>
+                {") => {\n  console.log("}
+                <span mix={codeStringStyle}>{"`hello, ${name}`"}</span>
+                {");\n}"}
+              </pre>
+              <p mix={bodyParaStyle}>
+                見出しや本文には等幅の和文を使うことで、独特のリズムが生まれます。
+                コードと本文のフォントサイズの差を小さくできるので、コードを含む技術記事との相性が良いです。
+              </p>
+            </div>
 
-              {/* prev / next */}
-              <div mix={prevNextWrapStyle}>
-                {prevPost ? (
-                  <a
-                    rmx-document
-                    href={routes.post.href({ slug: prevPost.slug })}
-                    mix={prevCardStyle}
-                  >
-                    <div mix={prevNextLabelStyle}>← 前の記事</div>
-                    <div mix={prevNextTitleStyle}>{prevPost.title}</div>
-                  </a>
-                ) : (
-                  <div />
-                )}
-                {nextPost ? (
-                  <a
-                    rmx-document
-                    href={routes.post.href({ slug: nextPost.slug })}
-                    mix={nextCardStyle}
-                  >
-                    <div mix={prevNextLabelStyle}>次の記事 →</div>
-                    <div mix={prevNextTitleStyle}>{nextPost.title}</div>
-                  </a>
-                ) : (
-                  <div />
-                )}
-              </div>
-            </article>
-          </div>
+            {/* prev / next */}
+            <div mix={prevNextWrapStyle}>
+              {prevPost ? (
+                <a
+                  rmx-document
+                  href={routes.post.href({ slug: prevPost.slug })}
+                  mix={prevCardStyle}
+                >
+                  <div mix={prevNextLabelStyle}>← 前の記事</div>
+                  <div mix={prevNextTitleStyle}>{prevPost.title}</div>
+                </a>
+              ) : (
+                <div />
+              )}
+              {nextPost ? (
+                <a
+                  rmx-document
+                  href={routes.post.href({ slug: nextPost.slug })}
+                  mix={nextCardStyle}
+                >
+                  <div mix={prevNextLabelStyle}>次の記事 →</div>
+                  <div mix={prevNextTitleStyle}>{nextPost.title}</div>
+                </a>
+              ) : (
+                <div />
+              )}
+            </div>
+          </article>
           <Footer />
         </main>
       </Document>
@@ -128,16 +126,17 @@ const pageStyle = css({
   minHeight: "100vh",
   background: T.bg,
   color: T.text,
-  display: "flex",
-  flexDirection: "column",
+  display: "grid",
+  gridTemplateRows: "auto 1fr auto",
 });
-
-const contentFillStyle = css({ flex: 1, minHeight: 0 });
 
 const articleStyle = css({
   padding: "28px 36px 60px",
   maxWidth: "720px",
   margin: "0 auto",
+  "@media (max-width: 640px)": {
+    padding: "20px 16px 48px",
+  },
 });
 
 const backLinkStyle = css({
@@ -221,6 +220,9 @@ const prevNextWrapStyle = css({
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
   gap: "12px",
+  "@media (max-width: 640px)": {
+    gridTemplateColumns: "1fr",
+  },
 });
 
 const prevCardStyle = css({

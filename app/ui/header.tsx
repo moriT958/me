@@ -4,6 +4,7 @@ import { routes } from "../routes.ts";
 import { T } from "./theme.ts";
 import { ThemeToggle } from "../assets/theme-toggle.tsx";
 import { SearchButton, type SearchPost } from "../assets/search-modal.tsx";
+import { MobileNav } from "../assets/mobile-nav.tsx";
 
 type HeaderProps = {
   themeName: "light" | "dark";
@@ -46,6 +47,7 @@ export function Header(handle: Handle<HeaderProps>) {
         <div mix={spacerStyle} />
         <SearchButton posts={handle.props.posts} />
         <ThemeToggle themeName={handle.props.themeName} />
+        <MobileNav activePage={active} />
       </header>
     );
   };
@@ -58,6 +60,12 @@ const headerStyle = css({
   padding: "14px 36px",
   borderBottom: `1px solid ${T.border}`,
   background: T.bg,
+  position: "relative",
+  "@media (max-width: 640px)": {
+    padding: "12px 16px",
+    gap: "10px",
+    flexWrap: "wrap",
+  },
 });
 
 const brandStyle = css({
@@ -73,7 +81,14 @@ const brandStyle = css({
 
 const brandIconStyle = css({ color: T.accent });
 
-const navStyle = css({ display: "flex", gap: "14px", marginLeft: "18px" });
+const navStyle = css({
+  display: "flex",
+  gap: "14px",
+  marginLeft: "18px",
+  "@media (max-width: 640px)": {
+    display: "none",
+  },
+});
 
 const spacerStyle = css({ flex: 1 });
 

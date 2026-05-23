@@ -27,19 +27,17 @@ export function PostsPage(handle: Handle<PostsPageProps>) {
           activePage="posts"
           posts={handle.props.allPosts}
         />
-        <div mix={contentFillStyle}>
-          <div mix={contentWrapStyle}>
-            <PostsHeading count={handle.props.totalCount} />
-            <div mix={listStyle}>
-              {handle.props.posts.map((p) => (
-                <PostItem key={p.slug} post={p} />
-              ))}
-            </div>
-            <Pager
-              page={handle.props.page}
-              totalPages={handle.props.totalPages}
-            />
+        <div mix={contentWrapStyle}>
+          <PostsHeading count={handle.props.totalCount} />
+          <div mix={listStyle}>
+            {handle.props.posts.map((p) => (
+              <PostItem key={p.slug} post={p} />
+            ))}
           </div>
+          <Pager
+            page={handle.props.page}
+            totalPages={handle.props.totalPages}
+          />
         </div>
         <Footer />
       </main>
@@ -139,16 +137,17 @@ const pageStyle = css({
   minHeight: "100vh",
   background: T.bg,
   color: T.text,
-  display: "flex",
-  flexDirection: "column",
+  display: "grid",
+  gridTemplateRows: "auto 1fr auto",
 });
-
-const contentFillStyle = css({ flex: 1, minHeight: 0 });
 
 const contentWrapStyle = css({
   padding: "32px 36px 48px",
   maxWidth: "820px",
   margin: "0 auto",
+  "@media (max-width: 640px)": {
+    padding: "20px 16px 40px",
+  },
 });
 
 const listStyle = css({
