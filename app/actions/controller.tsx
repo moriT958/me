@@ -135,16 +135,13 @@ export default createController(routes, {
       );
     },
     home(context) {
-      const url = new URL(context.request.url);
-      const expanded = url.searchParams.get("more") === "1";
       const themeName = readThemeName(context.request.headers.get("cookie"));
 
       return context.render(
         <HomePage
           profile={PROFILE}
           activities={ACTIVITIES}
-          visibleCount={expanded ? ACTIVITIES.length : DEFAULT_VISIBLE_COUNT}
-          showMore={expanded ? null : "?more=1"}
+          initialCount={DEFAULT_VISIBLE_COUNT}
           themeName={themeName}
           posts={POSTS}
         />,
