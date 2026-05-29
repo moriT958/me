@@ -1,6 +1,6 @@
 @font-face {
   font-family: "PlemolJP Console NF";
-  src: url("/fonts/PlemolJPConsoleNF-Regular.woff2") format("woff2");
+  src: url("/fonts/plemol-jp.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -88,7 +88,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "PlemolJP Console NF", "JetBrains Mono", ui-monospace, Consolas, monospace;
+  font-family: "PlemolJP Console NF", ui-monospace, Consolas, monospace;
   font-variant-ligatures: contextual;
   background: var(--bg);
   color: var(--text);
