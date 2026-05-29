@@ -25,10 +25,7 @@ export function Document(handle: Handle<DocumentProps>) {
       </head>
       <body mix={bodyStyle}>
         {handle.props.children}
-        <script
-          type="module"
-          src={routes.assets.href({ path: "app/assets/entry.ts" })}
-        ></script>
+        <script type="module" src={routes.assets.href({ path: "app/assets/entry.ts" })}></script>
       </body>
     </html>
   );

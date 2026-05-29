@@ -28,11 +28,7 @@ export function HomePage(handle: Handle<HomePageProps>) {
   return () => (
     <Document title="morita's website" themeName={handle.props.themeName}>
       <main mix={pageStyle}>
-        <Header
-          themeName={handle.props.themeName}
-          activePage="home"
-          posts={handle.props.posts}
-        />
+        <Header themeName={handle.props.themeName} activePage="home" posts={handle.props.posts} />
         <div mix={contentWrapStyle}>
           <HeroCard profile={handle.props.profile} />
           <RecentActivities

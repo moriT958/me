@@ -29,15 +29,13 @@ export function TagsPage(handle: Handle<TagsPageProps>) {
           <div mix={contentWrapStyle}>
             <div mix={headingWrapStyle}>
               <div mix={headingStyle}>
-                <span mix={promptStyle}>$</span>{" "}
-                <span mix={headingMutedStyle}>grep -rl </span>
+                <span mix={promptStyle}>$</span> <span mix={headingMutedStyle}>grep -rl </span>
                 <span mix={flagStyle}>"#{tag}"</span>
                 <span mix={headingMutedStyle}> posts/</span>
               </div>
               <div mix={subheadStyle}>
                 <span>
-                  {posts.length} posts tagged{" "}
-                  <span mix={tagAccentStyle}>#{tag}</span>
+                  {posts.length} posts tagged <span mix={tagAccentStyle}>#{tag}</span>
                 </span>
                 <span>·</span>
                 <a rmx-document href={routes.posts.href()} mix={backLinkStyle}>
@@ -64,12 +62,7 @@ export function TagsPage(handle: Handle<TagsPageProps>) {
                   <p mix={postExcerptStyle}>{p.excerpt}</p>
                   <div mix={tagRowStyle}>
                     {p.tags.map((tg) => (
-                      <a
-                        key={tg}
-                        rmx-document
-                        href={routes.tags.href({ name: tg })}
-                        mix={tagStyle}
-                      >
+                      <a key={tg} rmx-document href={routes.tags.href({ name: tg })} mix={tagStyle}>
                         <span mix={tagHashStyle}>#</span>
                         {tg}
                       </a>

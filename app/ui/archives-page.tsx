@@ -20,15 +20,12 @@ type YearGroup = {
 
 export function ArchivesPage(handle: Handle<ArchivesPageProps>) {
   return () => {
-    const byYear = handle.props.posts.reduce<Record<string, Post[]>>(
-      (acc, p) => {
-        const y = p.date.slice(0, 4);
-        if (!acc[y]) acc[y] = [];
-        acc[y]!.push(p);
-        return acc;
-      },
-      {},
-    );
+    const byYear = handle.props.posts.reduce<Record<string, Post[]>>((acc, p) => {
+      const y = p.date.slice(0, 4);
+      if (!acc[y]) acc[y] = [];
+      acc[y]!.push(p);
+      return acc;
+    }, {});
 
     const yearGroups: YearGroup[] = Object.keys(byYear)
       .sort((a, b) => Number(b) - Number(a))

@@ -1,10 +1,4 @@
-import {
-  clientEntry,
-  css,
-  on,
-  type Handle,
-  type SerializableProps,
-} from "remix/ui";
+import { clientEntry, css, on, type Handle, type SerializableProps } from "remix/ui";
 
 import { GitHubIcon } from "./icons/github-icon.tsx";
 import { RssIcon } from "./icons/rss-icon.tsx";
@@ -53,14 +47,8 @@ export const HeroCard = clientEntry(
             cardShellStyle,
             on("mousemove", (event) => {
               const rect = event.currentTarget.getBoundingClientRect();
-              const x = (
-                ((event.clientX - rect.left) / rect.width) *
-                100
-              ).toFixed(1);
-              const y = (
-                ((event.clientY - rect.top) / rect.height) *
-                100
-              ).toFixed(1);
+              const x = (((event.clientX - rect.left) / rect.width) * 100).toFixed(1);
+              const y = (((event.clientY - rect.top) / rect.height) * 100).toFixed(1);
               if (glow?.x === x && glow?.y === y) return;
               glow = { x, y };
               handle.update();
@@ -83,11 +71,7 @@ export const HeroCard = clientEntry(
               />
             ) : null}
             <div mix={contentRowStyle}>
-              <img
-                src="/images/morit958.png"
-                alt={handle.props.profile.user}
-                mix={avatarStyle}
-              />
+              <img src="/images/morit958.png" alt={handle.props.profile.user} mix={avatarStyle} />
               <div mix={contentBodyStyle}>
                 <h1 mix={userNameStyle}>
                   {handle.props.profile.user}

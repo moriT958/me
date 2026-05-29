@@ -23,10 +23,7 @@ export function render() {
 
             return {
               href: await assetServer.getHref(entryId),
-              exportName:
-                entryId.split("#")[1] ||
-                component.name ||
-                titleCaseFileName(entryId),
+              exportName: entryId.split("#")[1] || component.name || titleCaseFileName(entryId),
             };
           },
         });

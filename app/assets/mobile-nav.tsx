@@ -1,10 +1,4 @@
-import {
-  clientEntry,
-  css,
-  on,
-  type Handle,
-  type SerializableProps,
-} from "remix/ui";
+import { clientEntry, css, on, type Handle, type SerializableProps } from "remix/ui";
 
 import { MenuIcon } from "./icons/menu-icon.tsx";
 import { CloseIcon } from "./icons/close-icon.tsx";

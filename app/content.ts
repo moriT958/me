@@ -30,10 +30,7 @@ type Frontmatter = {
   draft?: boolean;
 };
 
-const CONTENT_DIR = join(
-  fileURLToPath(new URL(".", import.meta.url)),
-  "../content",
-);
+const CONTENT_DIR = join(fileURLToPath(new URL(".", import.meta.url)), "../content");
 
 const processor = unified()
   .use(remarkParse)
@@ -84,9 +81,7 @@ async function loadPosts(): Promise<Post[]> {
     }),
   );
 
-  return (results.filter((p) => p !== null) as Post[]).sort((a, b) =>
-    b.date.localeCompare(a.date),
-  );
+  return (results.filter((p) => p !== null) as Post[]).sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export const posts: Post[] = await loadPosts();

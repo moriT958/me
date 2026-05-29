@@ -1,10 +1,4 @@
-import {
-  clientEntry,
-  css,
-  on,
-  type Handle,
-  type SerializableProps,
-} from "remix/ui";
+import { clientEntry, css, on, type Handle, type SerializableProps } from "remix/ui";
 
 import { SearchIcon } from "./icons/search-icon.tsx";
 
@@ -143,12 +137,7 @@ export const SearchButton = clientEntry(
                 {/* Input row */}
                 <div mix={inputRowStyle}>
                   <SearchIcon />
-                  <input
-                    id={INPUT_ID}
-                    type="text"
-                    placeholder="Search posts..."
-                    mix={inputStyle}
-                  />
+                  <input id={INPUT_ID} type="text" placeholder="Search posts..." mix={inputStyle} />
                   {query && (
                     <button
                       type="button"
@@ -157,9 +146,7 @@ export const SearchButton = clientEntry(
                         on("click", () => {
                           query = "";
                           handle.update();
-                          const el = document.getElementById(
-                            INPUT_ID,
-                          ) as HTMLInputElement | null;
+                          const el = document.getElementById(INPUT_ID) as HTMLInputElement | null;
                           if (el) {
                             el.value = "";
                             el.focus();
@@ -177,8 +164,7 @@ export const SearchButton = clientEntry(
                 <div mix={resultsListStyle}>
                   {results.length === 0 ? (
                     <div mix={emptyStyle}>
-                      No results for "
-                      <span style={{ color: "var(--fg)" }}>{query}</span>"
+                      No results for "<span style={{ color: "var(--fg)" }}>{query}</span>"
                     </div>
                   ) : (
                     results.map((p, i) => (

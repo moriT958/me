@@ -1,10 +1,4 @@
-import {
-  clientEntry,
-  css,
-  on,
-  type Handle,
-  type SerializableProps,
-} from "remix/ui";
+import { clientEntry, css, on, type Handle, type SerializableProps } from "remix/ui";
 
 import { T } from "./theme.ts";
 import type { RecentActivity } from "../ui/home-page.tsx";
@@ -23,8 +17,7 @@ export const RecentActivities = clientEntry(
       const items = showAll
         ? handle.props.items
         : handle.props.items.slice(0, handle.props.initialCount);
-      const hasMore =
-        !showAll && handle.props.items.length > handle.props.initialCount;
+      const hasMore = !showAll && handle.props.items.length > handle.props.initialCount;
 
       return (
         <section mix={sectionStyle}>

@@ -26,14 +26,17 @@ export const ArticleBody = clientEntry(
         btn.addEventListener("click", () => {
           const code = pre.querySelector("code");
           if (!code) return;
-          navigator.clipboard.writeText(code.textContent ?? "").then(() => {
-            btn.textContent = "Copied!";
-            btn.classList.add("code-copy-btn--copied");
-            setTimeout(() => {
-              btn.textContent = "Copy";
-              btn.classList.remove("code-copy-btn--copied");
-            }, 1500);
-          }).catch(() => {});
+          navigator.clipboard
+            .writeText(code.textContent ?? "")
+            .then(() => {
+              btn.textContent = "Copied!";
+              btn.classList.add("code-copy-btn--copied");
+              setTimeout(() => {
+                btn.textContent = "Copy";
+                btn.classList.remove("code-copy-btn--copied");
+              }, 1500);
+            })
+            .catch(() => {});
         });
 
         pre.parentNode!.insertBefore(wrapper, pre);
@@ -64,8 +67,20 @@ const bodyStyle = css({
   "& [data-code-wrapper]": { maxWidth: "100%" },
   "& p": { marginTop: "18px" },
   "& p:first-child": { marginTop: "0" },
-  "& h2": { fontSize: "20px", color: T.fg, marginTop: "32px", marginBottom: "8px", lineHeight: 1.3 },
-  "& h3": { fontSize: "17px", color: T.fg, marginTop: "28px", marginBottom: "6px", lineHeight: 1.3 },
+  "& h2": {
+    fontSize: "20px",
+    color: T.fg,
+    marginTop: "32px",
+    marginBottom: "8px",
+    lineHeight: 1.3,
+  },
+  "& h3": {
+    fontSize: "17px",
+    color: T.fg,
+    marginTop: "28px",
+    marginBottom: "6px",
+    lineHeight: 1.3,
+  },
   "& h4": { color: T.fg, marginTop: "24px", marginBottom: "6px", lineHeight: 1.3 },
   "& h5": { color: T.fg, marginTop: "24px", marginBottom: "6px", lineHeight: 1.3 },
   "& h6": { color: T.fg, marginTop: "24px", marginBottom: "6px", lineHeight: 1.3 },
@@ -109,7 +124,12 @@ const bodyStyle = css({
     overflowX: "auto",
     WebkitOverflowScrolling: "touch",
   },
-  "& th": { border: `1px solid ${T.border}`, padding: "8px 12px", background: T.panel, color: T.fg },
+  "& th": {
+    border: `1px solid ${T.border}`,
+    padding: "8px 12px",
+    background: T.panel,
+    color: T.fg,
+  },
   "& td": { border: `1px solid ${T.border}`, padding: "8px 12px" },
   // Code copy button
   "& .code-copy-btn": {
@@ -158,4 +178,3 @@ const bodyStyle = css({
   "& .hljs-type": { color: "var(--code-string)" },
   "& .hljs-class .hljs-title": { color: "var(--code-string)" },
 });
-

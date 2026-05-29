@@ -1,7 +1,6 @@
 (() => {
   const key = "var-card-theme";
-  const fromCookie =
-    document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  const fromCookie = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
   let theme = fromCookie;
 
   try {

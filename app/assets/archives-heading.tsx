@@ -8,8 +8,7 @@ export function ArchivesHeading(handle: Handle<ArchivesHeadingProps>) {
   return () => (
     <div mix={wrapStyle}>
       <div mix={cmdLineStyle}>
-        <span mix={accentStyle}>$</span>{" "}
-        <span mix={typedStyle}>ls archives/</span>
+        <span mix={accentStyle}>$</span> <span mix={typedStyle}>ls archives/</span>
         <span mix={caretStyle} />
       </div>
       <div mix={subtitleStyle}>{handle.props.count} posts</div>
@@ -51,8 +50,7 @@ const caretStyle = css({
   verticalAlign: "-0.12em",
   background: "var(--fg)",
   marginLeft: "1px",
-  animation:
-    "blink 1.05s steps(1) infinite, caret-hide-archives 0s 0.50s forwards",
+  animation: "blink 1.05s steps(1) infinite, caret-hide-archives 0s 0.50s forwards",
   "@keyframes caret-hide-archives": {
     to: { opacity: 0, width: 0, margin: 0 },
   },

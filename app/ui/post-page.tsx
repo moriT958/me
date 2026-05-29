@@ -21,10 +21,7 @@ export function PostPage(handle: Handle<PostPageProps>) {
   return () => {
     const { post, prevPost, nextPost } = handle.props;
     return (
-      <Document
-        title={`morit958 | ${post.title}`}
-        themeName={handle.props.themeName}
-      >
+      <Document title={`morit958 | ${post.title}`} themeName={handle.props.themeName}>
         <main mix={pageStyle}>
           <Header
             themeName={handle.props.themeName}
@@ -59,12 +56,7 @@ export function PostPage(handle: Handle<PostPageProps>) {
             {/* tags */}
             <div mix={tagRowStyle}>
               {post.tags.map((tag) => (
-                <a
-                  key={tag}
-                  rmx-document
-                  href={routes.tags.href({ name: tag })}
-                  mix={tagStyle}
-                >
+                <a key={tag} rmx-document href={routes.tags.href({ name: tag })} mix={tagStyle}>
                   <span mix={tagHashStyle}>#</span>
                   {tag}
                 </a>

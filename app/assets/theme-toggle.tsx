@@ -34,8 +34,7 @@ export const ThemeToggle = clientEntry(
     return () => {
       const currentTheme = readThemeFromDom() ?? themeName;
       const nextTheme = currentTheme === "light" ? "dark" : "light";
-      const label =
-        nextTheme === "dark" ? "Switch to dark theme" : "Switch to light theme";
+      const label = nextTheme === "dark" ? "Switch to dark theme" : "Switch to light theme";
 
       return (
         <button

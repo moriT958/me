@@ -35,10 +35,7 @@ export function PostsPage(handle: Handle<PostsPageProps>) {
               <PostItem key={p.slug} post={p} />
             ))}
           </div>
-          <Pager
-            page={handle.props.page}
-            totalPages={handle.props.totalPages}
-          />
+          <Pager page={handle.props.page} totalPages={handle.props.totalPages} />
         </div>
         <Footer />
       </main>
@@ -72,19 +69,12 @@ function PostItem(handle: Handle<PostItemProps>) {
       </div>
       <h3 mix={postTitleStyle}>
         {handle.props.post.title}
-        {handle.props.post.external ? (
-          <span mix={externalMarkStyle}>↗</span>
-        ) : null}
+        {handle.props.post.external ? <span mix={externalMarkStyle}>↗</span> : null}
       </h3>
       <p mix={postExcerptStyle}>{handle.props.post.excerpt}</p>
       <div mix={tagRowStyle}>
         {handle.props.post.tags.map((tag) => (
-          <a
-            key={tag}
-            rmx-document
-            href={routes.tags.href({ name: tag })}
-            mix={tagStyle}
-          >
+          <a key={tag} rmx-document href={routes.tags.href({ name: tag })} mix={tagStyle}>
             <span mix={tagHashStyle}>#</span>
             {tag}
           </a>
@@ -121,12 +111,7 @@ function Pager(handle: Handle<PagerProps>) {
               {i + 1}
             </span>
           ) : (
-            <a
-              rmx-document
-              key={i}
-              href={`${routes.posts.href()}?page=${i}`}
-              mix={pagerBtnStyle}
-            >
+            <a rmx-document key={i} href={`${routes.posts.href()}?page=${i}`} mix={pagerBtnStyle}>
               {i + 1}
             </a>
           ),

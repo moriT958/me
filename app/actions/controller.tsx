@@ -4,11 +4,7 @@ import { assetServer } from "../assets.ts";
 import { buildRSSFeed } from "../feed.ts";
 import { routes } from "../routes.ts";
 import { posts as POSTS } from "../content.ts";
-import {
-  HomePage,
-  type HomeProfile,
-  type RecentActivity,
-} from "../ui/home-page.tsx";
+import { HomePage, type HomeProfile, type RecentActivity } from "../ui/home-page.tsx";
 import { ArchivesPage } from "../ui/archives-page.tsx";
 import { PostPage } from "../ui/post-page.tsx";
 import { PostsPage } from "../ui/posts-page.tsx";
@@ -29,7 +25,6 @@ const PROFILE: HomeProfile = {
     { label: "RSS", url: "/rss.xml", href: "/rss.xml" },
   ],
 };
-
 
 const ACTIVITIES: RecentActivity[] = [
   {
@@ -64,8 +59,7 @@ export default createController(routes, {
   actions: {
     async assets(context) {
       return (
-        (await assetServer.fetch(context.request)) ??
-        new Response("Not Found", { status: 404 })
+        (await assetServer.fetch(context.request)) ?? new Response("Not Found", { status: 404 })
       );
     },
     home(context) {
@@ -100,10 +94,7 @@ export default createController(routes, {
         ),
       );
       const themeName = readThemeName(context.request.headers.get("cookie"));
-      const pagePosts = POSTS.slice(
-        page * POSTS_PER_PAGE,
-        (page + 1) * POSTS_PER_PAGE,
-      );
+      const pagePosts = POSTS.slice(page * POSTS_PER_PAGE, (page + 1) * POSTS_PER_PAGE);
 
       return context.render(
         <PostsPage
@@ -118,14 +109,10 @@ export default createController(routes, {
     },
     archives(context) {
       const themeName = readThemeName(context.request.headers.get("cookie"));
-      return context.render(
-        <ArchivesPage posts={POSTS} themeName={themeName} />,
-      );
+      return context.render(<ArchivesPage posts={POSTS} themeName={themeName} />);
     },
     post(context) {
-      const idx = POSTS.findIndex(
-        (entry) => entry.slug === context.params.slug,
-      );
+      const idx = POSTS.findIndex((entry) => entry.slug === context.params.slug);
       if (idx === -1) {
         return new Response("Not Found", { status: 404 });
       }
@@ -159,12 +146,7 @@ export default createController(routes, {
       const themeName = readThemeName(context.request.headers.get("cookie"));
 
       return context.render(
-        <TagsPage
-          tag={tag}
-          posts={filtered}
-          allPosts={POSTS}
-          themeName={themeName}
-        />,
+        <TagsPage tag={tag} posts={filtered} allPosts={POSTS} themeName={themeName} />,
       );
     },
   },

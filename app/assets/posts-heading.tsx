@@ -50,8 +50,7 @@ const caretStyle = css({
   verticalAlign: "-0.12em",
   background: "var(--fg)",
   marginLeft: "1px",
-  animation:
-    "blink 1.05s steps(1) infinite, caret-hide-posts 0s 0.38s forwards",
+  animation: "blink 1.05s steps(1) infinite, caret-hide-posts 0s 0.38s forwards",
   "@keyframes caret-hide-posts": {
     to: { opacity: 0, width: 0, margin: 0 },
   },
