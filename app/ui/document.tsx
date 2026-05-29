@@ -19,7 +19,6 @@ export function Document(handle: Handle<DocumentProps>) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="stylesheet" href="/styles/global.css" />
-        <script src="/scripts/theme-bootstrap.js"></script>
         <title>{handle.props.title ?? DEFAULT_TITLE}</title>
         {handle.props.head}
       </head>

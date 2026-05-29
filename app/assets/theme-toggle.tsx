@@ -9,7 +9,6 @@ type ThemeToggleProps = {
   themeName: ThemeName;
 };
 
-const STORAGE_KEY = "var-card-theme";
 const THEME_COOKIE = "var-card-theme";
 
 export const ThemeToggle = clientEntry(
@@ -21,11 +20,6 @@ export const ThemeToggle = clientEntry(
       themeName = nextTheme;
       if (typeof document !== "undefined") {
         document.documentElement.dataset.theme = nextTheme;
-      }
-      if (typeof localStorage !== "undefined") {
-        localStorage.setItem(STORAGE_KEY, nextTheme);
-      }
-      if (typeof document !== "undefined") {
         document.cookie = `${THEME_COOKIE}=${nextTheme}; Path=/; Max-Age=31536000; SameSite=Lax`;
       }
       handle.update();
