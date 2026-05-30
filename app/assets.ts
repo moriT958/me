@@ -12,9 +12,15 @@ export const assetServer = createAssetServer({
   allow: ["app/assets/**", "node_modules/**"],
   deny: ["app/**/*.server.*"],
   sourceMaps: process.env.NODE_ENV === "development" ? "external" : undefined,
+  fingerprint: process.env.NODE_ENV === "production" ? { buildId: "1" } : undefined,
+  watch: process.env.NODE_ENV === "production" ? false : undefined,
   scripts: {
     define: {
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV ?? "development"),
     },
   },
 });
+
+export const entryHref: string = await assetServer.getHref(
+  new URL("./assets/entry.ts", import.meta.url).href,
+);
