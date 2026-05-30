@@ -59,8 +59,8 @@ export function Document(handle: Handle<DocumentProps>) {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <style dangerouslySetInnerHTML={{ __html: GLOBAL_STYLES }} />
-        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP_SCRIPT }} />
+        <style>{GLOBAL_STYLES}</style>
+        <script innerHTML={THEME_BOOTSTRAP_SCRIPT}></script>
         <title>{handle.props.title ?? DEFAULT_TITLE}</title>
         {handle.props.head}
       </head>
