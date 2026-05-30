@@ -4,10 +4,9 @@ import { compression } from "remix/compression-middleware";
 
 import controller from "./actions/controller.tsx";
 import { render } from "./middleware/render.tsx";
-import { theme } from "./middleware/theme.ts";
 import { routes } from "./routes.ts";
 
-type AppContext = MiddlewareContext<[ReturnType<typeof render>, ReturnType<typeof theme>]>;
+type AppContext = MiddlewareContext<[ReturnType<typeof render>]>;
 
 declare module "remix/router" {
   interface RouterTypes {
@@ -20,7 +19,6 @@ export const router = createRouter<AppContext>({
     compression(),
     staticFiles("./public", { index: false, cacheControl: "public, max-age=31536000, immutable" }),
     render(),
-    theme(),
   ],
 });
 
