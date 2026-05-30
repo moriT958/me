@@ -53,7 +53,6 @@ const ACTIVITIES: RecentActivity[] = [
 
 const DEFAULT_VISIBLE_COUNT = 4;
 const POSTS_PER_PAGE = 4;
-const THEME_COOKIE = "var-card-theme";
 
 export default createController(routes, {
   actions: {
@@ -63,7 +62,7 @@ export default createController(routes, {
       );
     },
     home(context) {
-      const themeName = readThemeName(context.request.headers.get("cookie"));
+      const { themeName } = context;
       const validSlugs = new Set(POSTS.map((p) => p.slug));
       const oneMonthAgo = new Date();
       oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
@@ -93,7 +92,7 @@ export default createController(routes, {
           Math.ceil(POSTS.length / POSTS_PER_PAGE) - 1,
         ),
       );
-      const themeName = readThemeName(context.request.headers.get("cookie"));
+      const { themeName } = context;
       const pagePosts = POSTS.slice(page * POSTS_PER_PAGE, (page + 1) * POSTS_PER_PAGE);
 
       return context.render(
@@ -108,7 +107,7 @@ export default createController(routes, {
       );
     },
     archives(context) {
-      const themeName = readThemeName(context.request.headers.get("cookie"));
+      const { themeName } = context;
       return context.render(<ArchivesPage posts={POSTS} themeName={themeName} />);
     },
     post(context) {
@@ -122,7 +121,7 @@ export default createController(routes, {
       }
       const prevPost = POSTS[idx + 1];
       const nextPost = idx > 0 ? POSTS[idx - 1] : undefined;
-      const themeName = readThemeName(context.request.headers.get("cookie"));
+      const { themeName } = context;
 
       return context.render(
         <PostPage
@@ -143,7 +142,7 @@ export default createController(routes, {
     tags(context) {
       const tag = context.params.name;
       const filtered = POSTS.filter((p) => p.tags.includes(tag));
-      const themeName = readThemeName(context.request.headers.get("cookie"));
+      const { themeName } = context;
 
       return context.render(
         <TagsPage tag={tag} posts={filtered} allPosts={POSTS} themeName={themeName} />,
@@ -151,15 +150,3 @@ export default createController(routes, {
     },
   },
 });
-
-function readThemeName(cookieHeader: string | null): "light" | "dark" {
-  if (!cookieHeader) return "light";
-  const cookies = cookieHeader.split(";");
-  for (const item of cookies) {
-    const [rawKey, rawValue] = item.split("=");
-    if (!rawKey || !rawValue) continue;
-    if (rawKey.trim() !== THEME_COOKIE) continue;
-    return rawValue.trim() === "dark" ? "dark" : "light";
-  }
-  return "light";
-}
