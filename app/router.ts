@@ -16,7 +16,12 @@ declare module "remix/router" {
 }
 
 export const router = createRouter<AppContext>({
-  middleware: [compression(), staticFiles("./public", { index: false }), render(), theme()],
+  middleware: [
+    compression(),
+    staticFiles("./public", { index: false, cacheControl: "public, max-age=31536000, immutable" }),
+    render(),
+    theme(),
+  ],
 });
 
 router.map(routes, controller);
