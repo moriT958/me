@@ -62,7 +62,6 @@ export default createController(routes, {
       );
     },
     home(context) {
-      const { themeName } = context;
       const validSlugs = new Set(POSTS.map((p) => p.slug));
       const oneMonthAgo = new Date();
       oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
@@ -78,7 +77,6 @@ export default createController(routes, {
           profile={PROFILE}
           activities={activities}
           initialCount={DEFAULT_VISIBLE_COUNT}
-          themeName={themeName}
           posts={POSTS}
         />,
       );
@@ -92,7 +90,6 @@ export default createController(routes, {
           Math.ceil(POSTS.length / POSTS_PER_PAGE) - 1,
         ),
       );
-      const { themeName } = context;
       const pagePosts = POSTS.slice(page * POSTS_PER_PAGE, (page + 1) * POSTS_PER_PAGE);
 
       return context.render(
@@ -102,13 +99,11 @@ export default createController(routes, {
           page={page}
           totalPages={Math.ceil(POSTS.length / POSTS_PER_PAGE)}
           totalCount={POSTS.length}
-          themeName={themeName}
         />,
       );
     },
     archives(context) {
-      const { themeName } = context;
-      return context.render(<ArchivesPage posts={POSTS} themeName={themeName} />);
+      return context.render(<ArchivesPage posts={POSTS} />);
     },
     post(context) {
       const idx = POSTS.findIndex((entry) => entry.slug === context.params.slug);
@@ -121,16 +116,9 @@ export default createController(routes, {
       }
       const prevPost = POSTS[idx + 1];
       const nextPost = idx > 0 ? POSTS[idx - 1] : undefined;
-      const { themeName } = context;
 
       return context.render(
-        <PostPage
-          post={post}
-          prevPost={prevPost}
-          nextPost={nextPost}
-          themeName={themeName}
-          posts={POSTS}
-        />,
+        <PostPage post={post} prevPost={prevPost} nextPost={nextPost} posts={POSTS} />,
       );
     },
     rss() {
@@ -142,11 +130,8 @@ export default createController(routes, {
     tags(context) {
       const tag = context.params.name;
       const filtered = POSTS.filter((p) => p.tags.includes(tag));
-      const { themeName } = context;
 
-      return context.render(
-        <TagsPage tag={tag} posts={filtered} allPosts={POSTS} themeName={themeName} />,
-      );
+      return context.render(<TagsPage tag={tag} posts={filtered} allPosts={POSTS} />);
     },
   },
 });

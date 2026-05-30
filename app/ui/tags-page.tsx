@@ -12,20 +12,15 @@ export type TagsPageProps = {
   tag: string;
   posts: Post[];
   allPosts: SearchPost[];
-  themeName: "light" | "dark";
 };
 
 export function TagsPage(handle: Handle<TagsPageProps>) {
   return () => {
     const { tag, posts } = handle.props;
     return (
-      <Document title={`morit958 | #${tag}`} themeName={handle.props.themeName}>
+      <Document title={`morit958 | #${tag}`}>
         <main mix={pageStyle}>
-          <Header
-            themeName={handle.props.themeName}
-            activePage="posts"
-            posts={handle.props.allPosts}
-          />
+          <Header activePage="posts" posts={handle.props.allPosts} />
           <div mix={contentWrapStyle}>
             <div mix={headingWrapStyle}>
               <div mix={headingStyle}>

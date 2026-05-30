@@ -5,44 +5,37 @@ import { SunIcon } from "./icons/sun-icon.tsx";
 
 type ThemeName = "light" | "dark";
 
-type ThemeToggleProps = {
-  themeName: ThemeName;
-};
-
 const THEME_COOKIE = "var-card-theme";
 
-export const ThemeToggle = clientEntry(
-  import.meta.url,
-  function ThemeToggle(handle: Handle<ThemeToggleProps>) {
-    let themeName = handle.props.themeName;
+export const ThemeToggle = clientEntry(import.meta.url, function ThemeToggle(handle: Handle) {
+  function applyTheme(nextTheme: ThemeName) {
+    document.documentElement.dataset.theme = nextTheme;
+    document.cookie = `${THEME_COOKIE}=${nextTheme}; Path=/; Max-Age=31536000; SameSite=Lax`;
+    handle.update();
+  }
 
-    function applyTheme(nextTheme: ThemeName) {
-      themeName = nextTheme;
-      if (typeof document !== "undefined") {
-        document.documentElement.dataset.theme = nextTheme;
-        document.cookie = `${THEME_COOKIE}=${nextTheme}; Path=/; Max-Age=31536000; SameSite=Lax`;
-      }
-      handle.update();
-    }
+  return () => {
+    const currentTheme = readThemeFromDom() ?? "light";
+    const nextTheme = currentTheme === "light" ? "dark" : "light";
+    const label = nextTheme === "dark" ? "Switch to dark theme" : "Switch to light theme";
 
-    return () => {
-      const currentTheme = readThemeFromDom() ?? themeName;
-      const nextTheme = currentTheme === "light" ? "dark" : "light";
-      const label = nextTheme === "dark" ? "Switch to dark theme" : "Switch to light theme";
-
-      return (
-        <button
-          type="button"
-          aria-label={label}
-          title={label}
-          mix={[buttonStyle, on("click", () => applyTheme(nextTheme))]}
-        >
-          {nextTheme === "dark" ? <MoonIcon /> : <SunIcon />}
-        </button>
-      );
-    };
-  },
-);
+    return (
+      <button
+        type="button"
+        aria-label={label}
+        title={label}
+        mix={[buttonStyle, on("click", () => applyTheme(nextTheme))]}
+      >
+        <span mix={moonIconStyle}>
+          <MoonIcon />
+        </span>
+        <span mix={sunIconStyle}>
+          <SunIcon />
+        </span>
+      </button>
+    );
+  };
+});
 
 function readThemeFromDom(): ThemeName | null {
   if (typeof document === "undefined") {
@@ -51,6 +44,16 @@ function readThemeFromDom(): ThemeName | null {
   const value = document.documentElement.dataset.theme;
   return value === "dark" || value === "light" ? value : null;
 }
+
+const moonIconStyle = css({
+  display: "inline-flex",
+  "[data-theme='dark'] &": { display: "none" },
+});
+
+const sunIconStyle = css({
+  display: "none",
+  "[data-theme='dark'] &": { display: "inline-flex" },
+});
 
 const buttonStyle = css({
   background: "transparent",

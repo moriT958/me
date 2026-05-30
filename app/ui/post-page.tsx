@@ -13,7 +13,6 @@ export type PostPageProps = {
   post: Post;
   prevPost?: Post;
   nextPost?: Post;
-  themeName: "light" | "dark";
   posts: SearchPost[];
 };
 
@@ -21,13 +20,9 @@ export function PostPage(handle: Handle<PostPageProps>) {
   return () => {
     const { post, prevPost, nextPost } = handle.props;
     return (
-      <Document title={`morit958 | ${post.title}`} themeName={handle.props.themeName}>
+      <Document title={`morit958 | ${post.title}`}>
         <main mix={pageStyle}>
-          <Header
-            themeName={handle.props.themeName}
-            activePage="posts"
-            posts={handle.props.posts}
-          />
+          <Header activePage="posts" posts={handle.props.posts} />
           <article mix={articleStyle}>
             {/* ← Posts back link */}
             <a rmx-document href={routes.posts.href()} mix={backLinkStyle}>

@@ -12,7 +12,6 @@ export type HomePageProps = {
   profile: HomeProfile;
   activities: RecentActivity[];
   initialCount: number;
-  themeName: "light" | "dark";
   posts: SearchPost[];
 };
 
@@ -26,9 +25,9 @@ export type RecentActivity = {
 
 export function HomePage(handle: Handle<HomePageProps>) {
   return () => (
-    <Document title="morita's website" themeName={handle.props.themeName}>
+    <Document title="morita's website">
       <main mix={pageStyle}>
-        <Header themeName={handle.props.themeName} activePage="home" posts={handle.props.posts} />
+        <Header activePage="home" posts={handle.props.posts} />
         <div mix={contentWrapStyle}>
           <HeroCard profile={handle.props.profile} />
           <RecentActivities

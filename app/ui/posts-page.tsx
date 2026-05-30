@@ -16,18 +16,13 @@ export type PostsPageProps = {
   page: number;
   totalPages: number;
   totalCount: number;
-  themeName: "light" | "dark";
 };
 
 export function PostsPage(handle: Handle<PostsPageProps>) {
   return () => (
-    <Document title="morit958 | Posts" themeName={handle.props.themeName}>
+    <Document title="morit958 | Posts">
       <main mix={pageStyle}>
-        <Header
-          themeName={handle.props.themeName}
-          activePage="posts"
-          posts={handle.props.allPosts}
-        />
+        <Header activePage="posts" posts={handle.props.allPosts} />
         <div mix={contentWrapStyle}>
           <PostsHeading count={handle.props.totalCount} />
           <div mix={listStyle}>

@@ -10,7 +10,6 @@ import type { Post } from "../content.ts";
 
 export type ArchivesPageProps = {
   posts: Post[];
-  themeName: "light" | "dark";
 };
 
 type YearGroup = {
@@ -32,13 +31,9 @@ export function ArchivesPage(handle: Handle<ArchivesPageProps>) {
       .map((year) => ({ year, posts: byYear[year]! }));
 
     return (
-      <Document title="morit958 | Archives" themeName={handle.props.themeName}>
+      <Document title="morit958 | Archives">
         <main mix={pageStyle}>
-          <Header
-            themeName={handle.props.themeName}
-            activePage="archives"
-            posts={handle.props.posts}
-          />
+          <Header activePage="archives" posts={handle.props.posts} />
           <div mix={contentWrapStyle}>
             <ArchivesHeading count={handle.props.posts.length} />
             <div mix={listStyle}>

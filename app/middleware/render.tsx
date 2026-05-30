@@ -28,7 +28,11 @@ export function render() {
           },
         });
 
-        return createHtmlResponse(stream, init);
+        let headers = new Headers(init?.headers);
+        if (!headers.has("Cache-Control")) {
+          headers.set("Cache-Control", "public, max-age=60, stale-while-revalidate=3600");
+        }
+        return createHtmlResponse(stream, { ...init, headers });
       },
   );
 }

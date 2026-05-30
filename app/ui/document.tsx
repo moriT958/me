@@ -6,14 +6,13 @@ export type DocumentProps = {
   children?: RemixNode;
   head?: RemixNode;
   title?: string;
-  themeName: "light" | "dark";
 };
 
 const DEFAULT_TITLE = readAppDisplayName("morit958");
 
 export function Document(handle: Handle<DocumentProps>) {
   return () => (
-    <html lang="ja" data-theme={handle.props.themeName}>
+    <html lang="ja" data-theme="light">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,6 +24,7 @@ export function Document(handle: Handle<DocumentProps>) {
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        <script src="/scripts/theme-bootstrap.js" />
         <link rel="stylesheet" href="/styles/global.css" />
         <title>{handle.props.title ?? DEFAULT_TITLE}</title>
         {handle.props.head}

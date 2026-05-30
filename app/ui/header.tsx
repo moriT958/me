@@ -7,7 +7,6 @@ import { SearchButton, type SearchPost } from "../assets/search-modal.tsx";
 import { MobileNav } from "../assets/mobile-nav.tsx";
 
 type HeaderProps = {
-  themeName: "light" | "dark";
   activePage?: "home" | "posts" | "archives";
   posts: SearchPost[];
 };
@@ -46,7 +45,7 @@ export function Header(handle: Handle<HeaderProps>) {
         </nav>
         <div mix={spacerStyle} />
         <SearchButton posts={handle.props.posts} />
-        <ThemeToggle themeName={handle.props.themeName} />
+        <ThemeToggle />
         <MobileNav activePage={active} />
       </header>
     );
