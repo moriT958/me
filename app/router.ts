@@ -1,5 +1,6 @@
 import { createRouter, type MiddlewareContext } from "remix/router";
 import { staticFiles } from "remix/middleware/static";
+import { compression } from "remix/compression-middleware";
 
 import controller from "./actions/controller.tsx";
 import { render } from "./middleware/render.tsx";
@@ -15,7 +16,7 @@ declare module "remix/router" {
 }
 
 export const router = createRouter<AppContext>({
-  middleware: [staticFiles("./public", { index: false }), render(), theme()],
+  middleware: [compression(), staticFiles("./public", { index: false }), render(), theme()],
 });
 
 router.map(routes, controller);
