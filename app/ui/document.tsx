@@ -1,6 +1,6 @@
 import { css, type Handle, type RemixNode } from "remix/ui";
 
-import { entryHref } from "../assets.ts";
+import { entryHref, preloadHrefs } from "../assets.ts";
 
 export type DocumentProps = {
   children?: RemixNode;
@@ -60,6 +60,9 @@ export function Document(handle: Handle<DocumentProps>) {
           crossOrigin="anonymous"
         />
         <style>{GLOBAL_STYLES}</style>
+        {preloadHrefs.map((href) => (
+          <link key={href} rel="modulepreload" href={href} />
+        ))}
         <script innerHTML={THEME_BOOTSTRAP_SCRIPT}></script>
         <title>{handle.props.title ?? DEFAULT_TITLE}</title>
         {handle.props.head}

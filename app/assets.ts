@@ -21,6 +21,8 @@ export const assetServer = createAssetServer({
   },
 });
 
-export const entryHref: string = await assetServer.getHref(
-  new URL("./assets/entry.ts", import.meta.url).href,
-);
+const entryUrl = new URL("./assets/entry.ts", import.meta.url).href;
+
+export const entryHref: string = await assetServer.getHref(entryUrl);
+
+export const preloadHrefs: string[] = await assetServer.getPreloads(entryUrl);
