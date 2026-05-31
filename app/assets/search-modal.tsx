@@ -1,4 +1,4 @@
-import { clientEntry, css, on, type Handle, type SerializableProps } from "remix/ui";
+import { clientEntry, css, on, ref, type Handle, type SerializableProps } from "remix/ui";
 
 import { SearchIcon } from "./icons/search-icon.tsx";
 
@@ -98,7 +98,7 @@ export const SearchButton = clientEntry(
       });
     }
 
-    function highlight(text: string) {
+    const highlight = (text: string) => {
       if (!query.trim()) return [text];
       const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       const parts = text.split(new RegExp(`(${escaped})`, "gi"));
@@ -118,7 +118,7 @@ export const SearchButton = clientEntry(
           part
         ),
       );
-    }
+    };
 
     return () => {
       const results = getResults();
@@ -132,7 +132,13 @@ export const SearchButton = clientEntry(
           </button>
 
           {isOpen && (
-            <div mix={[overlayStyle, on("click", closeModal)]}>
+            <div
+              mix={[
+                overlayStyle,
+                ref((el: HTMLElement) => document.body.appendChild(el)),
+                on("click", closeModal),
+              ]}
+            >
               <div mix={[panelStyle, on("click", (e) => e.stopPropagation())]}>
                 {/* Input row */}
                 <div mix={inputRowStyle}>

@@ -7,7 +7,16 @@ import remarkFrontmatter from "remark-frontmatter";
 import { matter } from "vfile-matter";
 import remarkRehype from "remark-rehype";
 import rehypeHighlight from "rehype-highlight";
-import rehypeStringify from "rehype-stringify";
+import { visit } from "unist-util-visit";
+import { toText } from "hast-util-to-text";
+import { VFile } from "vfile";
+import type { Root, Element } from "hast";
+
+export type TocItem = {
+  id: string;
+  text: string;
+  level: 2 | 3;
+};
 
 export type Post = {
   slug: string;
@@ -17,7 +26,8 @@ export type Post = {
   tags: string[];
   external?: boolean;
   url?: string;
-  body: string;
+  body: Root;
+  toc: TocItem[];
 };
 
 type Frontmatter = {
@@ -32,6 +42,35 @@ type Frontmatter = {
 
 const CONTENT_DIR = join(fileURLToPath(new URL(".", import.meta.url)), "../content");
 
+function slugify(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w぀-ヿ一-鿿-]/g, "");
+}
+
+function withHeadingIds() {
+  return (tree: Root, file: VFile) => {
+    const toc: TocItem[] = [];
+    const seen = new Map<string, number>();
+
+    visit(tree, "element", (node: Element) => {
+      if (node.tagName !== "h2" && node.tagName !== "h3") return;
+      const level = parseInt(node.tagName[1]!, 10) as 2 | 3;
+      const text = toText(node).trim();
+      const base = slugify(text) || "heading";
+      const n = seen.get(base) ?? 0;
+      seen.set(base, n + 1);
+      const id = n === 0 ? base : `${base}-${n}`;
+      toc.push({ id, text, level });
+      node.properties = { ...node.properties, id };
+    });
+
+    (file.data as Record<string, unknown>).toc = toc;
+  };
+}
+
 const processor = unified()
   .use(remarkParse)
   .use(remarkFrontmatter, ["yaml"])
@@ -40,7 +79,7 @@ const processor = unified()
   })
   .use(remarkRehype)
   .use(rehypeHighlight)
-  .use(rehypeStringify);
+  .use(withHeadingIds);
 
 async function loadPosts(): Promise<Post[]> {
   let files: string[];
@@ -59,15 +98,23 @@ async function loadPosts(): Promise<Post[]> {
       } catch {
         return null;
       }
-      let vfile;
+
+      let hast: Root;
+      let fileObj: VFile;
       try {
-        vfile = await processor.process(raw);
+        fileObj = new VFile({ value: raw });
+        const mdast = processor.parse(fileObj);
+        hast = (await processor.run(mdast, fileObj)) as Root;
       } catch {
         return null;
       }
-      const fm = vfile.data.matter as Frontmatter;
+
+      const fm = fileObj.data.matter as Frontmatter;
       if (fm.draft && process.env.NODE_ENV !== "development") return null;
       if (!fm.title || !fm.date || !fm.excerpt) return null;
+
+      const toc = ((fileObj.data as Record<string, unknown>).toc as TocItem[]) ?? [];
+
       return {
         slug,
         date: String(fm.date),
@@ -76,7 +123,8 @@ async function loadPosts(): Promise<Post[]> {
         tags: fm.tags ?? [],
         external: fm.external,
         url: fm.url,
-        body: String(vfile),
+        body: hast,
+        toc,
       };
     }),
   );

@@ -10,7 +10,7 @@ import { T } from "../assets/theme.ts";
 import type { SearchPost } from "../assets/search-modal.tsx";
 import type { Post } from "../content.ts";
 
-export type PostsPageProps = {
+type PostsPageProps = {
   posts: Post[];
   allPosts: SearchPost[];
   page: number;

@@ -8,11 +8,11 @@ type ThemeName = "light" | "dark";
 const THEME_COOKIE = "var-card-theme";
 
 export const ThemeToggle = clientEntry(import.meta.url, function ThemeToggle(handle: Handle) {
-  function applyTheme(nextTheme: ThemeName) {
+  const applyTheme = (nextTheme: ThemeName) => {
     document.documentElement.dataset.theme = nextTheme;
     document.cookie = `${THEME_COOKIE}=${nextTheme}; Path=/; Max-Age=31536000; SameSite=Lax`;
     handle.update();
-  }
+  };
 
   return () => {
     const currentTheme = readThemeFromDom() ?? "light";

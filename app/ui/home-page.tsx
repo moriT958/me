@@ -8,7 +8,7 @@ import { Header } from "./header.tsx";
 import { T } from "../assets/theme.ts";
 import type { SearchPost } from "../assets/search-modal.tsx";
 
-export type HomePageProps = {
+type HomePageProps = {
   profile: HomeProfile;
   activities: RecentActivity[];
   initialCount: number;

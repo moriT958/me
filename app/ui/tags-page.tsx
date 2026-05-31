@@ -8,7 +8,7 @@ import { T } from "../assets/theme.ts";
 import type { SearchPost } from "../assets/search-modal.tsx";
 import type { Post } from "../content.ts";
 
-export type TagsPageProps = {
+type TagsPageProps = {
   tag: string;
   posts: Post[];
   allPosts: SearchPost[];

@@ -7,7 +7,7 @@ type AyuColor = { hex(): string; alpha(v: number): AyuColor };
 const h = (c: AyuColor) => c.hex();
 const a = (c: AyuColor, v: number) => c.alpha(v).hex();
 
-export type DocumentProps = {
+type DocumentProps = {
   children?: RemixNode;
   head?: RemixNode;
   title?: string;
@@ -31,23 +31,9 @@ const GLOBAL_STYLES = `
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-@keyframes blob-drift-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  40% { transform: translate(28px, -22px) scale(1.07); }
-  70% { transform: translate(-18px, 16px) scale(0.93); }
-}
-@keyframes blob-drift-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  35% { transform: translate(-22px, 18px) scale(0.95); }
-  65% { transform: translate(24px, -14px) scale(1.05); }
-}
 @keyframes blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
-}
-@keyframes posts-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 `;
 
@@ -104,13 +90,9 @@ const htmlStyle = css({
   "--teal": h(L.syntax.regexp),
   "--purple": h(L.syntax.constant),
   "--red": h(L.syntax.markup),
-  "--hero-blob-secondary": h(L.syntax.operator),
-  "--hero-blob-secondary-opacity": "0.18",
   "--hero-shell-bg": a(L.common.accent.tint, 0.15),
   "--hero-ring-gradient": `conic-gradient(from 0deg, transparent 30%, ${a(L.common.accent.tint, 0.6)} 48%, #ffffff 50%, ${a(L.common.accent.tint, 0.6)} 52%, transparent 70%)`,
   "--hero-inner-bg": "var(--bg)",
-  "--hero-mouse-glow": a(L.common.accent.tint, 0.22),
-  "--hero-avatar-gradient": `linear-gradient(135deg, ${h(L.common.accent.tint)}, ${h(L.syntax.keyword)})`,
   "--hero-pill-border": a(L.ui.line, 0.12),
   "--hero-pill-bg": a(L.ui.panel.bg, 0.55),
   "--search-overlay-bg": "rgba(0, 0, 0, 0.25)",
@@ -137,13 +119,9 @@ const htmlStyle = css({
     "--teal": h(D.syntax.regexp),
     "--purple": h(D.syntax.constant),
     "--red": h(D.syntax.markup),
-    "--hero-blob-secondary": h(D.syntax.operator),
-    "--hero-blob-secondary-opacity": "0.22",
     "--hero-shell-bg": a(D.common.accent.tint, 0.12),
     "--hero-ring-gradient": `conic-gradient(from 0deg, transparent 30%, ${a(D.common.accent.tint, 0.8)} 48%, rgba(255,255,255,0.33) 50%, ${a(D.common.accent.tint, 0.8)} 52%, transparent 70%)`,
     "--hero-inner-bg": "var(--bg)",
-    "--hero-mouse-glow": a(D.common.accent.tint, 0.22),
-    "--hero-avatar-gradient": `linear-gradient(135deg, ${h(D.common.accent.tint)}, ${h(D.syntax.keyword)})`,
     "--hero-pill-border": a(D.editor.fg, 0.1),
     "--hero-pill-bg": a(D.editor.fg, 0.06),
     "--search-overlay-bg": "rgba(0, 0, 0, 0.6)",

@@ -16,6 +16,7 @@ export const T = {
   teal: "var(--teal)",
   purple: "var(--purple)",
   red: "var(--red)",
+  codeKeyword: "var(--code-keyword)",
   codeFunc: "var(--code-func)",
   codeString: "var(--code-string)",
 };

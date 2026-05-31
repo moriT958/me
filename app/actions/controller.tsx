@@ -51,6 +51,14 @@ const ACTIVITIES: RecentActivity[] = [
   },
 ];
 
+const SEARCH_POSTS = POSTS.map(({ slug, date, title, excerpt, tags }) => ({
+  slug,
+  date,
+  title,
+  excerpt,
+  tags,
+}));
+
 const DEFAULT_VISIBLE_COUNT = 4;
 const POSTS_PER_PAGE = 4;
 
@@ -77,7 +85,7 @@ export default createController(routes, {
           profile={PROFILE}
           activities={activities}
           initialCount={DEFAULT_VISIBLE_COUNT}
-          posts={POSTS}
+          posts={SEARCH_POSTS}
         />,
       );
     },
@@ -95,7 +103,7 @@ export default createController(routes, {
       return context.render(
         <PostsPage
           posts={pagePosts}
-          allPosts={POSTS}
+          allPosts={SEARCH_POSTS}
           page={page}
           totalPages={Math.ceil(POSTS.length / POSTS_PER_PAGE)}
           totalCount={POSTS.length}
@@ -103,7 +111,7 @@ export default createController(routes, {
       );
     },
     archives(context) {
-      return context.render(<ArchivesPage posts={POSTS} />);
+      return context.render(<ArchivesPage posts={POSTS} searchPosts={SEARCH_POSTS} />);
     },
     post(context) {
       const idx = POSTS.findIndex((entry) => entry.slug === context.params.slug);
@@ -118,7 +126,7 @@ export default createController(routes, {
       const nextPost = idx > 0 ? POSTS[idx - 1] : undefined;
 
       return context.render(
-        <PostPage post={post} prevPost={prevPost} nextPost={nextPost} posts={POSTS} />,
+        <PostPage post={post} prevPost={prevPost} nextPost={nextPost} posts={SEARCH_POSTS} />,
       );
     },
     rss() {
@@ -131,7 +139,7 @@ export default createController(routes, {
       const tag = context.params.name;
       const filtered = POSTS.filter((p) => p.tags.includes(tag));
 
-      return context.render(<TagsPage tag={tag} posts={filtered} allPosts={POSTS} />);
+      return context.render(<TagsPage tag={tag} posts={filtered} allPosts={SEARCH_POSTS} />);
     },
   },
 });

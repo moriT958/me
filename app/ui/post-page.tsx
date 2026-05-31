@@ -1,7 +1,8 @@
 import { css, type Handle } from "remix/ui";
 
 import { routes } from "../routes.ts";
-import { ArticleBody } from "../assets/article-body.tsx";
+import { ArticleBody } from "./article-body.tsx";
+import { TableOfContents } from "../assets/toc.tsx";
 import { Document } from "./document.tsx";
 import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
@@ -9,7 +10,7 @@ import { T } from "../assets/theme.ts";
 import type { SearchPost } from "../assets/search-modal.tsx";
 import type { Post } from "../content.ts";
 
-export type PostPageProps = {
+type PostPageProps = {
   post: Post;
   prevPost?: Post;
   nextPost?: Post;
@@ -19,76 +20,84 @@ export type PostPageProps = {
 export function PostPage(handle: Handle<PostPageProps>) {
   return () => {
     const { post, prevPost, nextPost } = handle.props;
+    const hasToc = !post.external && post.toc.length > 0;
     return (
       <Document title={`morit958 | ${post.title}`} description={post.excerpt}>
         <main mix={pageStyle}>
           <Header activePage="posts" posts={handle.props.posts} />
-          <article mix={articleStyle}>
-            {/* ← Posts back link */}
-            <a rmx-document href={routes.posts.href()} mix={backLinkStyle}>
-              ← Posts
-            </a>
+          <div mix={hasToc ? contentWithTocStyle : contentStyle}>
+            <article mix={hasToc ? articleWideStyle : articleStyle}>
+              {/* ← Posts back link */}
+              <a rmx-document href={routes.posts.href()} mix={backLinkStyle}>
+                ← Posts
+              </a>
 
-            <div mix={metaStyle}>{post.date}</div>
+              <div mix={metaStyle}>{post.date}</div>
 
-            {/* title */}
-            <h1 mix={titleStyle}>
-              {post.title}
-              {post.external && post.url ? (
-                <a
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  mix={externalMarkStyle}
-                >
-                  ↗
-                </a>
-              ) : post.external ? (
-                <span mix={externalMarkStyle}>↗</span>
-              ) : null}
-            </h1>
+              {/* title */}
+              <h1 mix={titleStyle}>
+                {post.title}
+                {post.external && post.url ? (
+                  <a
+                    href={post.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    mix={externalMarkStyle}
+                  >
+                    ↗
+                  </a>
+                ) : post.external ? (
+                  <span mix={externalMarkStyle}>↗</span>
+                ) : null}
+              </h1>
 
-            {/* tags */}
-            <div mix={tagRowStyle}>
-              {post.tags.map((tag) => (
-                <a key={tag} rmx-document href={routes.tags.href({ name: tag })} mix={tagStyle}>
-                  <span mix={tagHashStyle}>#</span>
-                  {tag}
-                </a>
-              ))}
-            </div>
+              {/* tags */}
+              <div mix={tagRowStyle}>
+                {post.tags.map((tag) => (
+                  <a key={tag} rmx-document href={routes.tags.href({ name: tag })} mix={tagStyle}>
+                    <span mix={tagHashStyle}>#</span>
+                    {tag}
+                  </a>
+                ))}
+              </div>
 
-            {/* body */}
-            {post.external ? null : <ArticleBody body={post.body} />}
+              {/* body */}
+              {post.external ? null : <ArticleBody body={post.body} />}
 
-            {/* prev / next */}
-            <div mix={prevNextWrapStyle}>
-              {prevPost ? (
-                <a
-                  rmx-document
-                  href={routes.post.href({ slug: prevPost.slug })}
-                  mix={prevCardStyle}
-                >
-                  <div mix={prevNextLabelStyle}>← 前の記事</div>
-                  <div mix={prevNextTitleStyle}>{prevPost.title}</div>
-                </a>
-              ) : (
-                <div />
-              )}
-              {nextPost ? (
-                <a
-                  rmx-document
-                  href={routes.post.href({ slug: nextPost.slug })}
-                  mix={nextCardStyle}
-                >
-                  <div mix={prevNextLabelStyle}>次の記事 →</div>
-                  <div mix={prevNextTitleStyle}>{nextPost.title}</div>
-                </a>
-              ) : (
-                <div />
-              )}
-            </div>
-          </article>
+              {/* prev / next */}
+              <div mix={prevNextWrapStyle}>
+                {prevPost ? (
+                  <a
+                    rmx-document
+                    href={routes.post.href({ slug: prevPost.slug })}
+                    mix={prevCardStyle}
+                  >
+                    <div mix={prevNextLabelStyle}>← 前の記事</div>
+                    <div mix={prevNextTitleStyle}>{prevPost.title}</div>
+                  </a>
+                ) : (
+                  <div />
+                )}
+                {nextPost ? (
+                  <a
+                    rmx-document
+                    href={routes.post.href({ slug: nextPost.slug })}
+                    mix={nextCardStyle}
+                  >
+                    <div mix={prevNextLabelStyle}>次の記事 →</div>
+                    <div mix={prevNextTitleStyle}>{nextPost.title}</div>
+                  </a>
+                ) : (
+                  <div />
+                )}
+              </div>
+            </article>
+            {hasToc && (
+              <aside mix={tocAsideStyle}>
+                <TableOfContents toc={post.toc} />
+              </aside>
+            )}
+          </div>
           <Footer />
         </main>
       </Document>
@@ -105,6 +114,31 @@ const pageStyle = css({
   overflowX: "clip",
 });
 
+/* TOC なし: 従来通り記事を中央寄せ */
+const contentStyle = css({
+  padding: "0",
+  width: "100%",
+});
+
+/* TOC あり: 記事 + TOC を2カラムで並べる */
+const contentWithTocStyle = css({
+  display: "grid",
+  gridTemplateColumns: "minmax(0, 800px) 220px",
+  columnGap: "48px",
+  maxWidth: "1120px",
+  margin: "0 auto",
+  padding: "0 36px",
+  boxSizing: "border-box",
+  width: "100%",
+  /* align-items はデフォルトの stretch を維持する。
+     aside が記事と同じ高さに伸びることで TOC の sticky が機能する。 */
+  "@media (max-width: 1080px)": {
+    gridTemplateColumns: "1fr",
+    padding: "0 16px",
+  },
+});
+
+/* TOC なし時の記事スタイル(従来通り) */
 const articleStyle = css({
   padding: "28px 36px 60px",
   maxWidth: "800px",
@@ -115,6 +149,23 @@ const articleStyle = css({
   boxSizing: "border-box",
   "@media (max-width: 640px)": {
     padding: "20px 16px 48px",
+  },
+});
+
+/* TOC あり時の記事スタイル(水平 padding はラッパーに委譲) */
+const articleWideStyle = css({
+  padding: "28px 0 60px",
+  minWidth: 0,
+  overflowX: "clip",
+  "@media (max-width: 640px)": {
+    padding: "20px 0 48px",
+  },
+});
+
+const tocAsideStyle = css({
+  paddingTop: "28px",
+  "@media (max-width: 1080px)": {
+    display: "none",
   },
 });
 

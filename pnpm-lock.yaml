@@ -14,6 +14,9 @@ importers:
       feed:
         specifier: ^5.2.1
         version: 5.2.1
+      hast-util-to-text:
+        specifier: ^4.0.2
+        version: 4.0.2
       oxfmt:
         specifier: ^0.52.0
         version: 0.52.0
@@ -23,9 +26,6 @@ importers:
       rehype-highlight:
         specifier: ^7.0.2
         version: 7.0.2
-      rehype-stringify:
-        specifier: ^10.0.1
-        version: 10.0.1
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
@@ -41,10 +41,19 @@ importers:
       unified:
         specifier: ^11.0.5
         version: 11.0.5
+      unist-util-visit:
+        specifier: ^5.1.0
+        version: 5.1.0
+      vfile:
+        specifier: ^6.0.3
+        version: 6.0.3
       vfile-matter:
         specifier: ^5.0.1
         version: 5.0.1
     devDependencies:
+      '@types/hast':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: latest
         version: 25.9.1
@@ -1470,9 +1479,6 @@ packages:
 
   rehype-highlight@7.0.2:
     resolution: {integrity: sha512-k158pK7wdC2qL3M5NcZROZ2tR/l7zOzjxXd5VGdcfIyoijjQqpHd3JKtYSBDpDZ38UI2WJWuFAtkMDxmx5kstA==}
-
-  rehype-stringify@10.0.1:
-    resolution: {integrity: sha512-k9ecfXHmIPuFVI61B9DeLPN0qFHfawM6RsuX48hoqlaKSF61RskNjSm1lI8PhBEM0MRdLxVVm4WmTqJQccH9mA==}
 
   remark-frontmatter@5.0.0:
     resolution: {integrity: sha512-XTFYvNASMe5iPN0719nPrdItC9aU0ssC4v14mH1BCi1u0n1gAocqcujWUrByftZTbLhRtiKRyjYTSIOcr69UVQ==}
@@ -2908,12 +2914,6 @@ snapshots:
       lowlight: 3.3.0
       unist-util-visit: 5.1.0
       vfile: 6.0.3
-
-  rehype-stringify@10.0.1:
-    dependencies:
-      '@types/hast': 3.0.4
-      hast-util-to-html: 9.0.5
-      unified: 11.0.5
 
   remark-frontmatter@5.0.0:
     dependencies:

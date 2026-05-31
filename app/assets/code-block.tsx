@@ -4,7 +4,6 @@ import { T } from "./theme.ts";
 
 type CodeBlockProps = SerializableProps & {
   code: string;
-  lang?: string;
 };
 
 export const CodeBlock = clientEntry(
@@ -24,40 +23,49 @@ export const CodeBlock = clientEntry(
       });
     };
 
-    return () => {
-      return (
-        <div mix={wrapperStyle}>
-          <button
-            type="button"
-            aria-label="Copy code"
-            mix={[copyBtnStyle, copied ? copyBtnCopiedStyle : null, on("click", copy)]}
-          >
-            {copied ? "Copied!" : "Copy"}
-          </button>
-          <pre mix={preStyle}>
-            <code>{handle.props.code}</code>
-          </pre>
-        </div>
-      );
-    };
+    return () => (
+      <button
+        type="button"
+        aria-label="Copy code"
+        mix={[copyBtnStyle, copied ? copyBtnCopiedStyle : null, on("click", copy)]}
+      >
+        {copied ? "Copied!" : "Copy"}
+      </button>
+    );
   },
 );
 
-const wrapperStyle = css({
+export const codeWrapperStyle = css({
   position: "relative",
   marginTop: "18px",
+  maxWidth: "100%",
 });
 
-const preStyle = css({
+export const preStyle = css({
   background: T.panel2,
   border: `1px solid ${T.border}`,
   borderRadius: "8px",
   padding: "14px 18px",
   fontSize: "13px",
-  color: T.fg,
-  overflow: "auto",
+  overflowX: "auto",
   lineHeight: 1.65,
   margin: 0,
+  maxWidth: "100%",
+  "& .hljs": { color: T.text, background: "transparent" },
+  "& .hljs-comment, & .hljs-quote": { color: T.muted, fontStyle: "italic" },
+  "& .hljs-keyword, & .hljs-selector-tag, & .hljs-name, & .hljs-tag": { color: T.codeKeyword },
+  "& .hljs-built_in, & .hljs-title": { color: T.codeFunc },
+  "& .hljs-string, & .hljs-addition, & .hljs-section": { color: T.codeString },
+  "& .hljs-attribute, & .hljs-selector-attr, & .hljs-type, & .hljs-variable, & .hljs-template-variable":
+    { color: T.blue },
+  "& .hljs-class .hljs-title": { color: T.blue },
+  "& .hljs-literal, & .hljs-number, & .hljs-symbol": { color: T.purple },
+  "& .hljs-deletion": { color: T.red },
+  "& .hljs-meta": { color: T.muted },
+  "& .hljs-regexp, & .hljs-bullet, & .hljs-selector-pseudo": { color: T.teal },
+  "& .hljs-link": { color: T.blue, textDecoration: "underline" },
+  "& .hljs-doctag, & .hljs-strong": { fontWeight: "bold", color: T.fg },
+  "& .hljs-emphasis": { fontStyle: "italic" },
 });
 
 const copyBtnStyle = css({

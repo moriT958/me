@@ -7,9 +7,11 @@ import { Footer } from "./footer.tsx";
 import { Header } from "./header.tsx";
 import { T } from "../assets/theme.ts";
 import type { Post } from "../content.ts";
+import type { SearchPost } from "../assets/search-modal.tsx";
 
-export type ArchivesPageProps = {
+type ArchivesPageProps = {
   posts: Post[];
+  searchPosts: SearchPost[];
 };
 
 type YearGroup = {
@@ -33,7 +35,7 @@ export function ArchivesPage(handle: Handle<ArchivesPageProps>) {
     return (
       <Document title="morit958 | Archives" description="morit958 のブログ記事アーカイブ。">
         <main mix={pageStyle}>
-          <Header activePage="archives" posts={handle.props.posts} />
+          <Header activePage="archives" posts={handle.props.searchPosts} />
           <div mix={contentWrapStyle}>
             <ArchivesHeading count={handle.props.posts.length} />
             <div mix={listStyle}>
