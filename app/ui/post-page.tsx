@@ -107,7 +107,7 @@ const pageStyle = css({
 
 const articleStyle = css({
   padding: "28px 36px 60px",
-  maxWidth: "720px",
+  maxWidth: "800px",
   width: "100%",
   margin: "0 auto",
   minWidth: 0,

@@ -73,6 +73,8 @@ const bodyStyle = css({
     marginTop: "32px",
     marginBottom: "8px",
     lineHeight: 1.3,
+    borderBottom: `1px solid ${T.border}`,
+    paddingBottom: "6px",
   },
   "& h3": {
     fontSize: "17px",
@@ -80,6 +82,8 @@ const bodyStyle = css({
     marginTop: "28px",
     marginBottom: "6px",
     lineHeight: 1.3,
+    borderBottom: `1px solid ${T.border}`,
+    paddingBottom: "4px",
   },
   "& h4": { color: T.fg, marginTop: "24px", marginBottom: "6px", lineHeight: 1.3 },
   "& h5": { color: T.fg, marginTop: "24px", marginBottom: "6px", lineHeight: 1.3 },
