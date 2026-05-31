@@ -25,7 +25,10 @@ export type RecentActivity = {
 
 export function HomePage(handle: Handle<HomePageProps>) {
   return () => (
-    <Document title="morita's website">
+    <Document
+      title="morita's website"
+      description="morit958 のウェブサイト。鹿児島の大学院生。Web や技術に関することを書きます。"
+    >
       <main mix={pageStyle}>
         <Header activePage="home" posts={handle.props.posts} />
         <div mix={contentWrapStyle}>

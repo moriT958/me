@@ -31,7 +31,7 @@ export function ArchivesPage(handle: Handle<ArchivesPageProps>) {
       .map((year) => ({ year, posts: byYear[year]! }));
 
     return (
-      <Document title="morit958 | Archives">
+      <Document title="morit958 | Archives" description="morit958 のブログ記事アーカイブ。">
         <main mix={pageStyle}>
           <Header activePage="archives" posts={handle.props.posts} />
           <div mix={contentWrapStyle}>

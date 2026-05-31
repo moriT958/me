@@ -6,6 +6,7 @@ export type DocumentProps = {
   children?: RemixNode;
   head?: RemixNode;
   title?: string;
+  description?: string;
 };
 
 const DEFAULT_TITLE = readAppDisplayName("morit958");
@@ -51,6 +52,7 @@ export function Document(handle: Handle<DocumentProps>) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {handle.props.description && <meta name="description" content={handle.props.description} />}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link
           rel="preload"

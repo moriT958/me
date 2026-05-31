@@ -18,7 +18,7 @@ export function TagsPage(handle: Handle<TagsPageProps>) {
   return () => {
     const { tag, posts } = handle.props;
     return (
-      <Document title={`morit958 | #${tag}`}>
+      <Document title={`morit958 | #${tag}`} description={`"#${tag}" タグの記事一覧。`}>
         <main mix={pageStyle}>
           <Header activePage="posts" posts={handle.props.allPosts} />
           <div mix={contentWrapStyle}>

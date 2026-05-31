@@ -20,7 +20,7 @@ export type PostsPageProps = {
 
 export function PostsPage(handle: Handle<PostsPageProps>) {
   return () => (
-    <Document title="morit958 | Posts">
+    <Document title="morit958 | Posts" description="morit958 のブログ記事一覧。">
       <main mix={pageStyle}>
         <Header activePage="posts" posts={handle.props.allPosts} />
         <div mix={contentWrapStyle}>

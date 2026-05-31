@@ -20,7 +20,7 @@ export function PostPage(handle: Handle<PostPageProps>) {
   return () => {
     const { post, prevPost, nextPost } = handle.props;
     return (
-      <Document title={`morit958 | ${post.title}`}>
+      <Document title={`morit958 | ${post.title}`} description={post.excerpt}>
         <main mix={pageStyle}>
           <Header activePage="posts" posts={handle.props.posts} />
           <article mix={articleStyle}>
