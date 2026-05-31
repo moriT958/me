@@ -37,7 +37,7 @@ export function HeroCard(handle: Handle<HeroCardProps>) {
         <div mix={ringGlowStyle} />
         <div mix={innerCardStyle}>
           <div mix={contentRowStyle}>
-            <img src="/images/morit958.png" alt={handle.props.profile.user} mix={avatarStyle} />
+            <img src="/images/morit958.webp" alt={handle.props.profile.user} mix={avatarStyle} />
             <div mix={contentBodyStyle}>
               <h1 mix={userNameStyle}>
                 {handle.props.profile.user}
