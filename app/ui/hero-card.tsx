@@ -1,8 +1,8 @@
-import { clientEntry, css, on, type Handle, type SerializableProps } from "remix/ui";
+import { css, type Handle, type SerializableProps } from "remix/ui";
 
-import { GitHubIcon } from "./icons/github-icon.tsx";
-import { RssIcon } from "./icons/rss-icon.tsx";
-import { XIcon } from "./icons/x-icon.tsx";
+import { GitHubIcon } from "../assets/icons/github-icon.tsx";
+import { RssIcon } from "../assets/icons/rss-icon.tsx";
+import { XIcon } from "../assets/icons/x-icon.tsx";
 
 const T = {
   fg: "var(--fg)",
@@ -30,78 +30,48 @@ type HeroCardProps = SerializableProps & {
   profile: HeroProfile;
 };
 
-export const HeroCard = clientEntry(
-  import.meta.url,
-  function HeroCard(handle: Handle<HeroCardProps>) {
-    let glow: { x: string; y: string } | null = null;
+export function HeroCard(handle: Handle<HeroCardProps>) {
+  return () => (
+    <section mix={sectionStyle}>
+      <div mix={blobWrapStyle}>
+        <div mix={blobPrimaryStyle} />
+        <div mix={blobSecondaryStyle} />
+      </div>
 
-    return () => (
-      <section mix={sectionStyle}>
-        <div mix={blobWrapStyle}>
-          <div mix={blobPrimaryStyle} />
-          <div mix={blobSecondaryStyle} />
-        </div>
-
-        <div
-          mix={[
-            cardShellStyle,
-            on("mousemove", (event) => {
-              const rect = event.currentTarget.getBoundingClientRect();
-              const x = (((event.clientX - rect.left) / rect.width) * 100).toFixed(1);
-              const y = (((event.clientY - rect.top) / rect.height) * 100).toFixed(1);
-              if (glow?.x === x && glow?.y === y) return;
-              glow = { x, y };
-              handle.update();
-            }),
-            on("mouseleave", () => {
-              if (!glow) return;
-              glow = null;
-              handle.update();
-            }),
-          ]}
-        >
-          <div mix={ringGlowStyle} />
-          <div mix={innerCardStyle}>
-            {glow ? (
-              <div
-                mix={mouseGlowStyle}
-                style={{
-                  background: `radial-gradient(circle at ${glow.x}% ${glow.y}%, var(--hero-mouse-glow) 0%, transparent 55%)`,
-                }}
-              />
-            ) : null}
-            <div mix={contentRowStyle}>
-              <img src="/images/morit958.png" alt={handle.props.profile.user} mix={avatarStyle} />
-              <div mix={contentBodyStyle}>
-                <h1 mix={userNameStyle}>
-                  {handle.props.profile.user}
-                  <span mix={handleStyle}>{handle.props.profile.handle}</span>
-                </h1>
-                <div mix={roleStyle}>{handle.props.profile.role}</div>
-                <p mix={bioStyle}>{handle.props.profile.bio}</p>
-                <div mix={linkListStyle}>
-                  {handle.props.profile.links.map((link) => (
-                    <a
-                      remix-document
-                      key={link.href}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      mix={pillLinkStyle}
-                    >
-                      <LinkIcon label={link.label} />
-                      <span>{link.url}</span>
-                    </a>
-                  ))}
-                </div>
+      <div mix={cardShellStyle}>
+        <div mix={ringGlowStyle} />
+        <div mix={innerCardStyle}>
+          <div mix={contentRowStyle}>
+            <img src="/images/morit958.png" alt={handle.props.profile.user} mix={avatarStyle} />
+            <div mix={contentBodyStyle}>
+              <h1 mix={userNameStyle}>
+                {handle.props.profile.user}
+                <span mix={handleStyle}>{handle.props.profile.handle}</span>
+              </h1>
+              <div mix={roleStyle}>{handle.props.profile.role}</div>
+              <p mix={bioStyle}>{handle.props.profile.bio}</p>
+              <div mix={linkListStyle}>
+                {handle.props.profile.links.map((link) => (
+                  <a
+                    remix-document
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    mix={pillLinkStyle}
+                  >
+                    <LinkIcon label={link.label} />
+                    <span>{link.url}</span>
+                  </a>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </section>
-    );
-  },
-);
+      </div>
+    </section>
+  );
+}
 
 type LinkIconProps = SerializableProps & { label: string };
 
@@ -179,13 +149,6 @@ const innerCardStyle = css({
   backdropFilter: "blur(22px) saturate(1.6)",
   WebkitBackdropFilter: "blur(22px) saturate(1.6)",
   overflow: "hidden",
-});
-
-const mouseGlowStyle = css({
-  position: "absolute",
-  inset: 0,
-  pointerEvents: "none",
-  zIndex: 0,
 });
 
 const contentRowStyle = css({

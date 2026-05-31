@@ -1,6 +1,6 @@
 import { css, type Handle } from "remix/ui";
 
-import { HeroCard, type HeroProfile } from "../assets/hero-card.tsx";
+import { HeroCard, type HeroProfile } from "./hero-card.tsx";
 import { Document } from "./document.tsx";
 import { RecentActivities } from "../assets/recent-activities.tsx";
 import { Footer } from "./footer.tsx";
