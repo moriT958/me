@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "NODE_ENV=development node --watch --import remix/node-tsx server.ts",
-    "start": "node --import remix/node-tsx server.ts",
+    "start": "NODE_ENV=production node --import remix/node-tsx server.ts",
     "test": "node --import remix/node-tsx --test",
     "typecheck": "tsc --noEmit",
     "fmt": "oxfmt",
