@@ -12,4 +12,10 @@ export const T = {
   accentSoft: "var(--accent-soft)",
   accentBorder: "var(--accent-border)",
   hoverBg: "var(--hover-bg)",
+  blue: "var(--blue)",
+  teal: "var(--teal)",
+  purple: "var(--purple)",
+  red: "var(--red)",
+  codeFunc: "var(--code-func)",
+  codeString: "var(--code-string)",
 };

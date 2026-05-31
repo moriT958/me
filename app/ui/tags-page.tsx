@@ -119,7 +119,7 @@ const subheadStyle = css({
   gap: "10px",
 });
 
-const tagAccentStyle = css({ color: T.accent });
+const tagAccentStyle = css({ color: T.teal });
 
 const backLinkStyle = css({
   color: T.muted,
@@ -186,9 +186,9 @@ const tagRowStyle = css({
 
 const tagStyle = css({
   position: "relative",
-  color: T.accent,
+  color: T.teal,
   fontSize: "12px",
-  borderBottom: `1px dashed ${T.accent}`,
+  borderBottom: `1px dashed ${T.teal}`,
   paddingBottom: "1px",
   textDecoration: "none",
 });

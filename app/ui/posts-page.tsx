@@ -201,9 +201,9 @@ const tagRowStyle = css({
 
 const tagStyle = css({
   position: "relative",
-  color: T.accent,
+  color: T.teal,
   fontSize: "12px",
-  borderBottom: `1px dashed ${T.accent}`,
+  borderBottom: `1px dashed ${T.teal}`,
   paddingBottom: "1px",
   textDecoration: "none",
 });

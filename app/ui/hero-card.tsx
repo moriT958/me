@@ -32,12 +32,7 @@ type HeroCardProps = SerializableProps & {
 
 export function HeroCard(handle: Handle<HeroCardProps>) {
   return () => (
-    <section mix={sectionStyle}>
-      <div mix={blobWrapStyle}>
-        <div mix={blobPrimaryStyle} />
-        <div mix={blobSecondaryStyle} />
-      </div>
-
+    <section>
       <div mix={cardShellStyle}>
         <div mix={ringGlowStyle} />
         <div mix={innerCardStyle}>
@@ -85,48 +80,11 @@ function LinkIcon(handle: Handle<LinkIconProps>) {
   };
 }
 
-const sectionStyle = css({ position: "relative" });
-
-const blobWrapStyle = css({
-  position: "absolute",
-  inset: "-10px",
-  borderRadius: "20px",
-  overflow: "hidden",
-  zIndex: 0,
-  pointerEvents: "none",
-});
-
-const blobPrimaryStyle = css({
-  position: "absolute",
-  width: "220px",
-  height: "220px",
-  borderRadius: "50%",
-  background: T.accent,
-  opacity: 0.22,
-  top: "-50px",
-  left: "30px",
-  filter: "blur(48px)",
-  animation: "blob-drift-1 11s ease-in-out infinite",
-});
-
-const blobSecondaryStyle = css({
-  position: "absolute",
-  width: "180px",
-  height: "180px",
-  borderRadius: "50%",
-  background: "var(--hero-blob-secondary)",
-  opacity: "var(--hero-blob-secondary-opacity)",
-  bottom: "-20px",
-  right: "50px",
-  filter: "blur(40px)",
-  animation: "blob-drift-2 14s ease-in-out infinite",
-});
-
 const cardShellStyle = css({
   position: "relative",
   zIndex: 1,
   borderRadius: "18px",
-  padding: "2px",
+  padding: "1px",
   overflow: "hidden",
   background: "var(--hero-shell-bg)",
 });
@@ -138,7 +96,7 @@ const ringGlowStyle = css({
   top: "-50%",
   left: "-50%",
   background: "var(--hero-ring-gradient)",
-  animation: "border-spin 4s linear infinite",
+  animation: "border-spin 12s linear infinite",
 });
 
 const innerCardStyle = css({
@@ -146,14 +104,11 @@ const innerCardStyle = css({
   borderRadius: "16px",
   padding: "24px 28px",
   background: "var(--hero-inner-bg)",
-  backdropFilter: "blur(22px) saturate(1.6)",
-  WebkitBackdropFilter: "blur(22px) saturate(1.6)",
+  border: "1px solid var(--border)",
   overflow: "hidden",
 });
 
 const contentRowStyle = css({
-  position: "relative",
-  zIndex: 1,
   display: "flex",
   gap: "22px",
   alignItems: "flex-start",
@@ -168,7 +123,6 @@ const avatarStyle = css({
   width: "88px",
   height: "88px",
   borderRadius: "88px",
-  boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.15)",
   flex: "0 0 auto",
   objectFit: "cover",
 });

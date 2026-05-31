@@ -333,7 +333,7 @@ const resultMetaStyle = css({
   gap: "10px",
 });
 
-const resultTagStyle = css({ color: "var(--accent)" });
+const resultTagStyle = css({ color: "var(--teal)" });
 
 const footerStyle = css({
   padding: "8px 18px",
